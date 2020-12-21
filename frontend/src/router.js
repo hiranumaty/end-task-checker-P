@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 
 const router= new VueRouter({
     //先にStoreを完成させて認証の状態の取得を実装すべきか
-    mode:'histroy',
+    mode:'history',
     routes:[
         {
             path: '/',
