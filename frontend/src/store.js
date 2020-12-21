@@ -11,10 +11,11 @@ const authModule = {
     namedspaced:true,
     state:{
         isLoggedIn:false,
-        user_id = '',
+        user_id:'',
     },
     getters:{
-        isLoggedIn:state => state.isLoggedIn
+        isLoggedIn:state => state.isLoggedIn,
+        user_id:user_id => state.user_id
     },
     mutations:{
         set(state,payload){

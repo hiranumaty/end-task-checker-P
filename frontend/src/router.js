@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LoginPage from '@/pages/LoginPage'
 //ここに必要なページのテンプレートを記述する
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
