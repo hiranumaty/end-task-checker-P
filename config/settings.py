@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     #thirdParty
     'rest_framework',
     'djoser',
-
+    'corsheaders',
     #Modules
     'account.apps.AccountConfig',
     'depts.apps.DeptsConfig',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,6 +131,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # (4) 追加
 
+#CORS (クロスオリジン)
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST =(
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+)
+
+#ログイン後のページURL
+LOGIN_REDIRECT_URL =''
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework_simplejwt.authentication.JWTAuthentication',

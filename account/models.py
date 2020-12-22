@@ -7,7 +7,6 @@ class UserManager(BaseUserManager):
     """Managerクラス"""
     use_in_migrations = True
     def _create_user(self,user_id,password,**extra_fields):
-        #emailが設定されていない問題をどのように解決する?
         user = self.model(user_id=user_id,**extra_fields)
         user.set_password(password)
         user.save(using=self._db)
