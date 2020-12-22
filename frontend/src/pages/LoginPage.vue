@@ -43,7 +43,7 @@ export default {
   methods: {
     // ログインボタン押下
     submitLogin: function() {
-      // ログイン
+      // ログイン ここの定義が間違っているのかも
       this.$store
         .dispatch("auth/login", {
           user_id: this.form.user_id,
