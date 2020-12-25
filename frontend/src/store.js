@@ -29,6 +29,7 @@ const authModule = {
     },
     actions:{
         login(context,payload){
+            console.log(payload)
             var host = process.env.VUE_APP_API_BASE_URL;
             //ここのURL定義を確認すべしURLの問題ではなさそう
             return api.post(host+'/auth/jwt/create/',{
