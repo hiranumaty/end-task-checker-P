@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import Vuex, { Store } from 'vuex'
-
+import Vuex from 'vuex'
 import api from '@/services/api'
 
 Vue.use(Vuex)
@@ -15,10 +14,11 @@ const authModule = {
     },
     getters:{
         isLoggedIn:state => state.isLoggedIn,
-        user_id:user_id => state.user_id
+        user_id:state => state.user_id
     },
     mutations:{
         set(state,payload){
+            //accountにgetメソッドが必要か
             state.user_id = payload.user_id
             state.isLoggedIn = true
         },
@@ -30,11 +30,12 @@ const authModule = {
     actions:{
         login(context,payload){
             var host = process.env.VUE_APP_API_BASE_URL;
-            //ここのURL定義を確認すべし
-            return api.post(host +'/auth/jwt/create/',{
+            //ここのURL定義を確認すべしURLの問題ではなさそう
+            return api.post(host+'/auth/jwt/create/',{
                 'user_id':payload.user_id,
                 'password':payload.password
-            }).then(response =>{
+            })
+            .then(response =>{
                 sessionStorage.setItem('token',response.data.auth_token)
                 return context.dispatch('reload')
                     .then(user => user)
@@ -47,7 +48,7 @@ const authModule = {
         },
         reload(context){
             var host = process.env.VUE_APP_API_BASE_URL;
-            return api.get(host + '/auth/users/me/')
+            return api.get(host+'/auth/users/me/')
                 .then(response =>{
                     const user = response.data
                     context.commit('set',{user:user})
@@ -96,7 +97,7 @@ const messageModule ={
         },
         setWarningMessage(context,payload){
             context.commit('clear')
-            context.commit('set',{'info':payload.message})
+            context.commit('set',{'warnings':payload.message})
         },
         setInfoMessage(context,payload){
             context.commit('clear')

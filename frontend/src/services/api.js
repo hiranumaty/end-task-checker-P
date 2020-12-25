@@ -36,7 +36,7 @@ api.interceptors.response.use(function(response){
         store.dispatch('message/setWarningMessages', { messages: messages })
 
     } else if (status === 401) {
-    // 認証エラー
+        // 認証エラー
         const token = sessionStorage.getItem('token')
         if (token != null) {
             message = 'ログイン有効期限切れ'

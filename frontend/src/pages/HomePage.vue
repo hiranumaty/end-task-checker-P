@@ -6,7 +6,7 @@
     </v-app>
 </template>
 <script>
-    import api from '@/services/api'
+    //import api from '@/services/api'
     import GlobalHeader from "@/components/GlobalHeader.vue";
     import GlobalMessage from "@/components/GlobalMessage.vue";
     export default {

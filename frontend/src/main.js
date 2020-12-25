@@ -14,7 +14,7 @@ Vue.prototype.$axios = axios
 Vue.use(BootstrapVue)
 new Vue({
   vuetify,
-  router,
   store,
+  router,
   render: h => h(App),
 }).$mount('#app')
