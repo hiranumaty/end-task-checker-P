@@ -31,7 +31,7 @@ const authModule = {
         login(context,payload){
             console.log(payload)
             var host = process.env.VUE_APP_API_BASE_URL;
-            //ここのURL定義を確認すべしURLの問題ではなさそう
+            //LoginPageからここに飛ばない
             return api.post(host+'/auth/jwt/create/',{
                 'user_id':payload.user_id,
                 'password':payload.password
@@ -109,10 +109,12 @@ const messageModule ={
         }
     }
 }
+//何故階層化されないのであるか
 const store = new Vuex.Store({
     modules:{
         auth:authModule,
         message:messageModule
     }
 })
+console.log(store)
 export default store

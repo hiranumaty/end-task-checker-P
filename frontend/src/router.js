@@ -31,7 +31,7 @@ const router= new VueRouter({
 //Routerによる画面遷移の際に毎回実行される
 
 router.beforeEach((to,from,next) =>{
-    const isLoggedIn = store.getters['auth/isLoggedIn']
+    const isLoggedIn = store.getters['isLoggedIn']
     const token = sessionStorage.getItem('token')
 
     if(to.matched.some(record => record.meta.requiresAuth))
@@ -42,7 +42,8 @@ router.beforeEach((to,from,next) =>{
         }else{
             //トークンが残っているか
             if(token!=null){
-                store.dispatch('auth/reload')
+                //auth//reloadをreloadに変更
+                store.dispatch('reload')
                     .then(()=>{
                         next()
                     })
@@ -58,7 +59,7 @@ router.beforeEach((to,from,next) =>{
         next()
     }
 })
-//ログイン画面ンへ強制遷移する
+//ログイン画面へ強制遷移する
 function forceToLoginPage(to,from,next){
     next({
         path:'/login',

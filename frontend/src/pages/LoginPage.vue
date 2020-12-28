@@ -43,14 +43,14 @@ export default {
   methods: {
     // ログインボタン押下
     submitLogin: function() {
-      // ログイン ここの定義が間違っているのかも
+      // ログインauth/loginをloginに変更
       this.$store
-        .dispatch("auth/login", {
+        .dispatch("login", {
           user_id: this.form.user_id,
           password: this.form.password
         })
         .then(() => {
-          this.$store.dispatch("message/setInfoMessage", {
+          this.$store.dispatch("setInfoMessage", {
             message: "ログインしました。"
           });
           // クエリ文字列に「next」がなければ、ホーム画面へ

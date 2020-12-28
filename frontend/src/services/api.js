@@ -2,6 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 
 const api = axios.create({
+    //こことprocess.env.VUE_APP_API_BASE_URLの違いis 何
     baseURL:process.env.VUE_APP_ROOT_API,
     timeout:5000,
     headers:{
@@ -9,10 +10,9 @@ const api = axios.create({
         'X-Requested-with':'XMLHttpRequest'
     }
 })
-
 //共通前処理
 api.interceptors.request.use(function(config){
-    store.dispatch('message/clearMessages')
+    store.dispatch('clearMessages')
     const token = sessionStorage.getItem('token')
     if(token){
         config.headers.Authorization = 'JWT'+token
@@ -33,7 +33,7 @@ api.interceptors.response.use(function(response){
     if (status === 400) {
         // バリデーションNG
         let messages = [].concat.apply([], Object.values(error.response.data))
-        store.dispatch('message/setWarningMessages', { messages: messages })
+        store.dispatch('setWarningMessages', { messages: messages })
 
     } else if (status === 401) {
         // 認証エラー
@@ -43,18 +43,18 @@ api.interceptors.response.use(function(response){
         } else {
             message = '認証エラー'
         }
-        store.dispatch('auth/logout')
-        store.dispatch('message/setErrorMessage', { message: message })
+        store.dispatch('logout')
+        store.dispatch('setErrorMessage', { message: message })
 
     } else if (status === 403) {
         // 権限エラー
         message = '権限エラーです。'
-        store.dispatch('message/setErrorMessage', { message: message })
+        store.dispatch('setErrorMessage', { message: message })
 
     } else {
     // その他のエラー
         message = '想定外のエラーです。'
-        store.dispatch('message/setErrorMessage', { message: message })
+        store.dispatch('setErrorMessage', { message: message })
     }
     return Promise.reject(error)
 })
