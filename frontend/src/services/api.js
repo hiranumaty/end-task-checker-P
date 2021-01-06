@@ -24,6 +24,7 @@ api.interceptors.request.use(function(config){
 })
 //共通エラー処理
 api.interceptors.response.use(function(response){
+    console.log('a')
     return response
 },function(error){
     const status = error.response ? error.response.status:500

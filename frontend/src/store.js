@@ -29,6 +29,7 @@ const authModule = {
     },
     actions:{
         login(context,payload){
+            //接続の状況でうまくいっていない可能性あり
             var host = process.env.VUE_APP_API_BASE_URL;
             //LoginPageからここに飛ばない
             return api.post(host+'/auth/jwt/create/',{
@@ -36,8 +37,9 @@ const authModule = {
                 'password':payload.password
             })
             .then(response =>{
-                console.log(response.data.auth_token)
-                sessionStorage.setItem('token',response.data.auth_token)
+                console.log(response)
+                //response.data内部にrefresh accessありaccessを認証トークンに登録した
+                sessionStorage.setItem('token',response.data.access)
                 return context.dispatch('reload')
                     .then(user => user)
             })
@@ -49,7 +51,6 @@ const authModule = {
         },
         reload(context){
             var host = process.env.VUE_APP_API_BASE_URL;
-            console.log(api.get(host+'/auth/users/me/'))
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
                     const user = response.data
@@ -117,5 +118,4 @@ const store = new Vuex.Store({
         message:messageModule
     }
 })
-console.log(store)
 export default store
