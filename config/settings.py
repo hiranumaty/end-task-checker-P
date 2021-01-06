@@ -141,13 +141,23 @@ CORS_ORIGIN_WHITELIST =(
 #ログイン後のページURL
 LOGIN_REDIRECT_URL =''
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser'
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    
 }
-
+#ヘッダーの変更を行う
+# JWT_AUTH ={
+#     'JWT_VERIFY_EXPIRATION': False,
+#     'JWT_AUTH_HEADER_PREFIX': 'Bearer'
+# }
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'user_id',
-    'AUTH_HEADER_TYPES':('JWT',),
-    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=30),
+    'AUTH_HEADER_TYPES': ('JWT',), 
+    #リフレッシュ後の寿命
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=2),
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=60),
 }

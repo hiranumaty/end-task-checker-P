@@ -29,7 +29,6 @@ const authModule = {
     },
     actions:{
         login(context,payload){
-            console.log(payload)
             var host = process.env.VUE_APP_API_BASE_URL;
             //LoginPageからここに飛ばない
             return api.post(host+'/auth/jwt/create/',{
@@ -37,6 +36,7 @@ const authModule = {
                 'password':payload.password
             })
             .then(response =>{
+                console.log(response.data.auth_token)
                 sessionStorage.setItem('token',response.data.auth_token)
                 return context.dispatch('reload')
                     .then(user => user)
@@ -49,6 +49,7 @@ const authModule = {
         },
         reload(context){
             var host = process.env.VUE_APP_API_BASE_URL;
+            console.log(api.get(host+'/auth/users/me/'))
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
                     const user = response.data
