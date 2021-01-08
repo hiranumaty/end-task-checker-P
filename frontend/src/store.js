@@ -29,15 +29,13 @@ const authModule = {
     },
     actions:{
         login(context,payload){
-            //接続の状況でうまくいっていない可能性あり
             var host = process.env.VUE_APP_API_BASE_URL;
-            //LoginPageからここに飛ばない
+            
             return api.post(host+'/auth/jwt/create/',{
                 'user_id':payload.user_id,
                 'password':payload.password
             })
             .then(response =>{
-                console.log(response)
                 //response.data内部にrefresh accessありaccessを認証トークンに登録した
                 sessionStorage.setItem('token',response.data.access)
                 return context.dispatch('reload')
@@ -50,9 +48,13 @@ const authModule = {
            context.commit('clear')
         },
         reload(context){
+            //ここでエラーが起こっているとさんけんできる
             var host = process.env.VUE_APP_API_BASE_URL;
+            console.log(host+'/auth/users/me/')
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
+                    //ここに入らない
+                    console.log(response)
                     const user = response.data
                     context.commit('set',{user:user})
                     sessionStorage.setItem('user',JSON.stringify(user))
