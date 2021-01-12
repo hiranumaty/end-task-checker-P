@@ -58,9 +58,6 @@ const authModule = {
                     sessionStorage.setItem('user',JSON.stringify(user))
                     return user
                 })
-                .catch(response =>{
-                    console.log(response)
-                })
         }
     }
 }
