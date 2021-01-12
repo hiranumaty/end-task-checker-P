@@ -18,20 +18,20 @@
     export default{
         computed: {
             user_id:function(){
-                return this.$store.getters['auth/user_id']
+                return this.$store.getters['/user_id']
             },
             isLoggedIn:function(){
-                return this.$store.getters['auth/isLoggedIn']
+                return this.$store.getters['/isLoggedIn']
             },
         },
         methods:{
             clickLogout:function(){
-                this.$store.dispatch('auth/logout')
+                this.$store.dispatch('logout')
                 this.$store.dispatch('message/setInfoMessage',{message:'ログアウトしました'})
-                this.$store.replace('/login')
+                this.$store.replace('login')
             },clickLogin:function(){
-                this.$store.dispatch('message/clearMessage')
-                this.$router.replace('/login')
+                this.$store.dispatch('clearMessages')
+                this.$router.replace('login')
             }
         }
     }

@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import api from '@/services/api'
 
 Vue.use(Vuex)
-
 //認証に使用するモジュール
 const authModule = {
     strict: process.env.NODE_ENV !== 'production',
@@ -50,7 +49,6 @@ const authModule = {
         reload(context){
             //ここでエラーが起こっているとさんけんできる
             var host = process.env.VUE_APP_API_BASE_URL;
-            console.log(host+'/auth/users/me/')
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
                     //ここに入らない
@@ -59,6 +57,9 @@ const authModule = {
                     context.commit('set',{user:user})
                     sessionStorage.setItem('user',JSON.stringify(user))
                     return user
+                })
+                .catch(response =>{
+                    console.log(response)
                 })
         }
     }
@@ -120,4 +121,5 @@ const store = new Vuex.Store({
         message:messageModule
     }
 })
+console.log(store)
 export default store
