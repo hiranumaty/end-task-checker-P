@@ -15,7 +15,7 @@ api.interceptors.request.use(function(config){
     store.dispatch('clearMessages')
     const token = sessionStorage.getItem('token')
     if(token){
-        config.headers.Authorization = 'JWT'+token
+        config.headers.Authorization = 'JWT '+token
         return config
     }
     return config

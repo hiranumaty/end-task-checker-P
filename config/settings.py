@@ -155,10 +155,8 @@ REST_FRAMEWORK = {
 #     'JWT_AUTH_HEADER_PREFIX': 'Bearer'
 # }
 SIMPLE_JWT = {
-    'JWT_VERIFY_EXPIRATION': False,
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'USER_ID_FIELD': 'user_id',
-    # 'AUTH_HEADER_TYPES': ('JWT',), 
+    'AUTH_HEADER_TYPES': ('JWT',), 
     #リフレッシュ後の寿命
     'REFRESH_TOKEN_LIFETIME':timedelta(days=2),
     'ACCESS_TOKEN_LIFETIME':timedelta(minutes=60),
