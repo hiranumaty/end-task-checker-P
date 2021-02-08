@@ -51,7 +51,6 @@ const authModule = {
             var host = process.env.VUE_APP_API_BASE_URL;
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
-                    //ここに入らない
                     console.log(response)
                     const user = response.data
                     context.commit('set',{user:user})
