@@ -7,5 +7,5 @@ class ExStateAdmin(admin.ModelAdmin):
     list_filter = ('TargetMonth','departmentID',)
     readonly_fields = ('departmentID','taskID',)
     search_fields = ['departmentID',]
-    ordering = ('-TargetMonth','-departmentID',)
+    ordering = ('TargetMonth','departmentID',)
 admin.site.register(ExState,ExStateAdmin)

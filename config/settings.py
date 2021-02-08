@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'depts.apps.DeptsConfig',
     'apiv1.apps.Apiv1Config',
+    'MasterData.apps.MasterdataConfig',
     'ExState.apps.ExstateConfig',
 ]
 
