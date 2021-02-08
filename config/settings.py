@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'corsheaders',
     #Modules
     'account.apps.AccountConfig',
-    'apiv1.apps.Apiv1Config',
     'MasterData.apps.MasterdataConfig',
     'ExState.apps.ExstateConfig',
 ]
