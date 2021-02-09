@@ -5,7 +5,7 @@ from .models import ExState
 class ExStateAdmin(admin.ModelAdmin):
     list_display = ('id','TargetMonth','depart','task','toDoFlg')
     list_filter = ('TargetMonth',)
-    readonly_fields = ('id','depart','task',)
+    #readonly_fields = ('id','depart','task',)
     #search_fields = ['',]
     ordering = ('TargetMonth','depart',)
 admin.site.register(ExState,ExStateAdmin)

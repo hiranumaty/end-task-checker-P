@@ -11,9 +11,7 @@ class ExState(models.Model):
     TargetMonth = models.CharField(verbose_name='対象年月',max_length=6) #対象年月YYYYMM レコード作成の際にDateFieldからYYYYMMを取得
     toDoFlg = models.BooleanField(verbose_name='実行状況',default=False)
     
-    #ここでリレーションの関係を記載
-    task = models.OneToOneField(TasksMaster,verbose_name='タスク名',on_delete=models.CASCADE)
-    depart = models.OneToOneField(DeptsMaster,verbose_name='部署',on_delete=models.CASCADE)
-    def __str__(self):
-        return self.id
+    #ここでリレーションの関係を記載 どうやらOne to Manyらしい
+    task = models.ForeignKey(TasksMaster,verbose_name='タスク名',on_delete=models.SET_NULL,null=True)
+    depart = models.ForeignKey(DeptsMaster,verbose_name='部署',on_delete=models.SET_NULL,null=True)
     
