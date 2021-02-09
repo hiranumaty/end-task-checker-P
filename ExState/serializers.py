@@ -5,4 +5,8 @@ class ExStateSerializer(serializers.ModelSerializer):
     """実行済みタスク用のシリアライザ"""
     class Meta:
         model = ExState
-        fields = ['departmentID','taskID','TargetMonth','toDoFlg']
+        fields = ['deploy_name','Task_name','TargetMonth','toDoFlg']
+    
+    #結合しているマスターテーブルから部門名とタスク名を取得する
+    deploy_name = serializers.CharField(source='depart.deploy_name')
+    Task_name = serializers.CharField(source='task.Task_name')
