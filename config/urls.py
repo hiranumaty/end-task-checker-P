@@ -22,5 +22,6 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name='index.html')),
     path('api/v1/auth/',include('djoser.urls')),
     path('api/v1/auth/',include('djoser.urls.jwt')),
-    re_path('',RedirectView.as_view(url='/')),
+    path('api/v1/',include('ExState.urls')),
+    #re_path('',RedirectView.as_view(url='/')),
 ]
