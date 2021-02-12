@@ -6,5 +6,6 @@ from . import views
 urlpatterns = [
     #一覧取得
     path('ExState/',views.ExStateListAPIView.as_view()),
+    path('ExState/<str:deploy_id>/<str:Task_id>',views.ExStateRetriveAPIView.as_view())
     #選択したモデルの変更
 ]
