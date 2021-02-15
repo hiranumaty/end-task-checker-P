@@ -1,0 +1,19 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Args": [
+      "--max-line-length",
+      "88",
+      "--ignore==E203,W503,W504"
+    ],
+    // フォーマッタの設定
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+      "--aggressive",
+      "--aggressive",
+    ],
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false
+}

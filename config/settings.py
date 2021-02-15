@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #thirdParty
+    # thirdParty
     'rest_framework',
     'djoser',
     'corsheaders',
-    #Modules
+    # Modules
     'account.apps.AccountConfig',
     'MasterData.apps.MasterdataConfig',
     'ExState.apps.ExstateConfig',
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,35 +128,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # (4) 追加
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # (4) 追加
 
-#CORS (クロスオリジン)
+# CORS (クロスオリジン)
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST =(
+CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
     'http://127.0.0.1:8080',
 )
 
-#ログイン後のページURL
-LOGIN_REDIRECT_URL =''
+# ログイン後のページURL
+LOGIN_REDIRECT_URL = ''
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAdminUser'
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES':[
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    
+
 }
-#ヘッダーの変更を行う
+# ヘッダーの変更を行う
 # JWT_AUTH ={
 #     'JWT_VERIFY_EXPIRATION': False,
 #     'JWT_AUTH_HEADER_PREFIX': 'Bearer'
 # }
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'user_id',
-    'AUTH_HEADER_TYPES': ('JWT',), 
-    #リフレッシュ後の寿命
-    'REFRESH_TOKEN_LIFETIME':timedelta(days=2),
-    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=60),
+    'AUTH_HEADER_TYPES': ('JWT',),
+    # リフレッシュ後の寿命
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
 }
