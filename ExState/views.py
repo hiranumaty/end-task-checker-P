@@ -34,11 +34,23 @@ class ExStateListAPIView(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 
-
+#見るだけのクラスも作ってみた
 class ExStateRetriveAPIView(
         MultipleFieldLookupMixin,
         generics.RetrieveUpdateAPIView):
-    """詳細の取得"""
-    queryset = ExState.objects.all()
+    print("a")
     serializer_class = ExStateSerializer
+    queryset = ExState.objects.all()
+    lookup_fields = ('deploy_id', 'Task_id')
+
+
+#汎用APIではなくAPI.viewを実装し、細かく実装するしかないか
+
+class ExStateRetriveUpdateAPIView(
+        MultipleFieldLookupMixin,
+        generics.RetrieveUpdateAPIView):
+    """詳細の取得"""
+    
+    serializer_class = ExStateSerializer
+    queryset = ExState.objects.all()
     lookup_fields = ('deploy_id', 'Task_id')

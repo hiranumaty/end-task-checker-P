@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     # 一覧取得
     path('ExState/', views.ExStateListAPIView.as_view()),
-    path('ExState/<str:deploy_id>/Detail/<str:Task_id>',
+    #このパターンで分岐しないのは何故
+    path(r'ExState/<str:deploy_id>/Detail/<str:Task_id>',
          views.ExStateRetriveAPIView.as_view())
     # 選択したモデルの変更
 ]
