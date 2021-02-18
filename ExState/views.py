@@ -37,7 +37,7 @@ class ExStateListAPIView(generics.ListAPIView):
 #見るだけのクラスも作ってみた
 class ExStateRetriveAPIView(
         MultipleFieldLookupMixin,
-        generics.RetrieveUpdateAPIView):
+        generics.RetrieveAPIView):
     print("a")
     serializer_class = ExStateSerializer
     queryset = ExState.objects.all()
