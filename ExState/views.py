@@ -38,7 +38,7 @@ class ExStateListAPIView(generics.ListAPIView):
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
     queryset = ExState.objects.all()
     serializer_class = ExStateSerializer
-
+    lookup_field = 'id'
 #見るだけのクラスも作ってみた
 # class ExStateRetriveAPIView(
 #         MultipleFieldLookupMixin,

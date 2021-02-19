@@ -5,7 +5,7 @@ urlpatterns = [
     # 一覧取得
     path('ExState/', views.ExStateListAPIView.as_view()),
     #このパターンで分岐しないのは何故
-    path('ExState/Detail/<pk>',
+    path(r'^ExState/Detail/<pk>/$',
          views.ExStateRetriveAPIView.as_view())
     # 選択したモデルの変更
 ]
