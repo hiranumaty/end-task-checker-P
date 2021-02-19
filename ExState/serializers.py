@@ -7,6 +7,7 @@ class ExStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExState
         fields = [
+            'id',
             'deploy_id',
             'deploy_name',
             'Task_id',

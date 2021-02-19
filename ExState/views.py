@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from rest_framework import status, generics
+from rest_framework import status, generics,views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -34,23 +34,28 @@ class ExStateListAPIView(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 
+#uuidで取得することにした
+class ExStateRetriveAPIView(generics.RetrieveAPIView):
+    queryset = ExState.objects.all()
+    serializer_class = ExStateSerializer
+
 #見るだけのクラスも作ってみた
-class ExStateRetriveAPIView(
-        MultipleFieldLookupMixin,
-        generics.RetrieveAPIView):
-    print("a")
-    serializer_class = ExStateSerializer
-    queryset = ExState.objects.all()
-    lookup_fields = ('deploy_id', 'Task_id')
+# class ExStateRetriveAPIView(
+#         MultipleFieldLookupMixin,
+#         generics.RetrieveAPIView):
+#     print("a")
+#     serializer_class = ExStateSerializer
+#     queryset = ExState.objects.all()
+#     lookup_fields = ('deploy_id', 'Task_id')
 
 
-#汎用APIではなくAPI.viewを実装し、細かく実装するしかないか
 
-class ExStateRetriveUpdateAPIView(
-        MultipleFieldLookupMixin,
-        generics.RetrieveUpdateAPIView):
-    """詳細の取得"""
+
+# class ExStateRetriveUpdateAPIView(
+#         MultipleFieldLookupMixin,
+#         generics.RetrieveUpdateAPIView):
+#     """詳細の取得"""
     
-    serializer_class = ExStateSerializer
-    queryset = ExState.objects.all()
-    lookup_fields = ('deploy_id', 'Task_id')
+#     serializer_class = ExStateSerializer
+#     queryset = ExState.objects.all()
+#     lookup_fields = ('deploy_id', 'Task_id')
