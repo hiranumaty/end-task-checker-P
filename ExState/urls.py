@@ -6,6 +6,8 @@ urlpatterns = [
     path('ExState/', views.ExStateListAPIView.as_view()),
     #idで指定した詳細の取得
     path('ExState/<uuid:id>/detail/',
-         views.ExStateRetriveAPIView.as_view())
+         views.ExStateRetriveAPIView.as_view()),
     # 選択したモデルの変更
+    path('ExState/<uuid:id>/update/',
+         views.ExStateUpDateAPIView.as_view()),
 ]

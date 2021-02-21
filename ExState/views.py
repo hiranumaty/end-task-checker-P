@@ -34,28 +34,20 @@ class ExStateListAPIView(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 
-#uuidで取得することにした
+class ExStateListMonthAPIView(generics.ListAPIView):
+    """月単位のフィルター"""
+    pass
+
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
+    """指定IDの詳細取得"""
     queryset = ExState.objects.all()
     serializer_class = ExStateSerializer
     lookup_field = 'id'
-#見るだけのクラスも作ってみた
-# class ExStateRetriveAPIView(
-#         MultipleFieldLookupMixin,
-#         generics.RetrieveAPIView):
-#     print("a")
-#     serializer_class = ExStateSerializer
-#     queryset = ExState.objects.all()
-#     lookup_fields = ('deploy_id', 'Task_id')
+
+class ExStateUpDateAPIView(generics.UpdateAPIView):
+    """指定IDの部分更新"""
+    queryset = ExState.objects.all()
+    serializer_class = ExStateSerializer
+    lookup_field = 'id'
 
 
-
-
-# class ExStateRetriveUpdateAPIView(
-#         MultipleFieldLookupMixin,
-#         generics.RetrieveUpdateAPIView):
-#     """詳細の取得"""
-    
-#     serializer_class = ExStateSerializer
-#     queryset = ExState.objects.all()
-#     lookup_fields = ('deploy_id', 'Task_id')
