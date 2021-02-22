@@ -26,6 +26,10 @@ class MultipleFieldLookupMixin(object):
         self.check_object_permissions(self.request, obj)
         return obj
 
+class ExStateFilter(filters.FilterSet):
+    class Meta:
+        model = ExState
+        fields = '__all__'
 
 class ExStateListAPIView(generics.ListAPIView):
     """一覧の総取得"""
@@ -33,13 +37,14 @@ class ExStateListAPIView(generics.ListAPIView):
     serializer_class = ExStateSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+#Filterを用いて検索を行う
 
 class ExStateListMonthAPIView(generics.ListAPIView):
-    """月単位のフィルター"""
     queryset = ExState.objects.all()
     serializer_class = ExStateSerializer
-    lookup_field = 'TargetMonth'
-    #入力されたURLを元にリストを絞り込んで成形
+    #lookup_fieldの代替をどのようにすればいいのか
+    lookup_field = 'TargetMonth' 
+        
 
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
     """指定IDの詳細取得"""

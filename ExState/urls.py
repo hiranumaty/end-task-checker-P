@@ -10,6 +10,6 @@ urlpatterns = [
      path('ExState/<uuid:id>/update/',
           views.ExStateUpDateAPIView.as_view()),
      #TargetMonthでの絞り込み
-     path('ExState/<str:TargetMonth>/',
+     path('ExState/<str:TargetMonth>/list/',
           views.ExStateListMonthAPIView.as_view()),
 ]
