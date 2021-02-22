@@ -36,7 +36,10 @@ class ExStateListAPIView(generics.ListAPIView):
 
 class ExStateListMonthAPIView(generics.ListAPIView):
     """月単位のフィルター"""
-    pass
+    queryset = ExState.objects.all()
+    serializer_class = ExStateSerializer
+    lookup_field = 'TargetMonth'
+    #入力されたURLを元にリストを絞り込んで成形
 
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
     """指定IDの詳細取得"""
