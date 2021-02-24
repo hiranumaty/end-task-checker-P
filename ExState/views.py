@@ -2,7 +2,6 @@ from django_filters import rest_framework as filters
 from rest_framework import status, generics,views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-
 from .models import ExState
 from .serializers import ExStateSerializer
 from django.shortcuts import get_object_or_404
@@ -38,12 +37,15 @@ class ExStateListAPIView(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 #Filterを用いて検索を行う
+class ExStateListMonthAPIView(views.APIView):
+    def get(self,request,TargetMonth,*args,**kwargs):
+        #フィルターをどうかけるか
+        filterset = ExStateFilter(request.query_params,queryset=ExState.objects.filter(TargetMonth=TargetMonth))
+        if not filterset.is_valid():
+            raise ValidationError(filterset.errors)
+        serializer = ExStateSerializer(instance=filterset.qs,many=True)
+        return Response(serializer.data,status.HTTP_200_OK)
 
-class ExStateListMonthAPIView(generics.ListAPIView):
-    queryset = ExState.objects.all()
-    serializer_class = ExStateSerializer
-    #lookup_fieldの代替をどのようにすればいいのか
-    lookup_field = 'TargetMonth' 
         
 
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
