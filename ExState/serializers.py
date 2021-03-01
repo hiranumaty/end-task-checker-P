@@ -20,6 +20,7 @@ class ExStateSerializer(serializers.ModelSerializer):
     deploy_name = serializers.CharField(source='depart.deploy_name')
     Task_id = serializers.CharField(source='task.id')
     Task_name = serializers.CharField(source='task.Task_name')
+    order_by = ['TargetMonth','deploy_id','Task_id']
 
 
 class ExStateListSerializer(serializers.ListSerializer):

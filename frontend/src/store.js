@@ -47,14 +47,13 @@ const authModule = {
            context.commit('clear')
         },
         reload(context){
-            //ここでエラーが起こっているとさんけんできる
             var host = process.env.VUE_APP_API_BASE_URL;
             return api.get(host+'/auth/users/me/')
                 .then(response =>{
-                    console.log(response)
                     const user = response.data
-                    context.commit('set',{user:user})
+                    context.commit('set',{user_id:user.user_id})
                     sessionStorage.setItem('user',JSON.stringify(user))
+                    console.log(context)  
                     return user
                 })
         }
@@ -117,5 +116,5 @@ const store = new Vuex.Store({
         message:messageModule
     }
 })
-console.log(store)
+console.log(store) //確認用
 export default store
