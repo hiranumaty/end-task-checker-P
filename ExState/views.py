@@ -28,11 +28,11 @@ class MultipleFieldLookupMixin(object):
         return obj
 
 
-
 class ExStateFilter(filters.FilterSet):
     class Meta:
         model = ExState
         fields = '__all__'
+#マスターからデータを取得する
 class GetDeptsMaster(generics.ListAPIView):
     queryset = DeptsMaster.objects.all()
     serializer_class = DeptsSerializer
@@ -43,6 +43,7 @@ class GetTasksMaster(generics.ListAPIView):
     serializer_class = TasksSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+    
 class ExStateListAPIView(generics.ListAPIView):
     """一覧の総取得"""
     queryset = ExState.objects.all()

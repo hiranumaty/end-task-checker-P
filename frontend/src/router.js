@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 //ここに必要なページのテンプレートを記述する
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
-
+import MainPage from '@/pages/MainPage'
 
 import store from '@/store'
 
@@ -23,9 +23,14 @@ const router= new VueRouter({
             component:LoginPage
         },
         {
+            path:'/MainPage',
+            component:MainPage,
+            meta:{requiresAuth:true}
+        },
+        {
             path:'*',
             redirect:'/'
-        }
+        },
     ]
 })
 //Routerによる画面遷移の際に毎回実行される
