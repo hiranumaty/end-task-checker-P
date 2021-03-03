@@ -4,6 +4,7 @@
         <GlobalMessage />
         <v-data-table
             :headers = "taskListColumns"
+            :items = "toDoDatas"
         >
         </v-data-table>
     </v-app>
@@ -21,12 +22,14 @@ export default{
         return{
             taskLength:"",
             taskListColumns:[],
+            toDoDatas:[],
         }
     },
     created(){
         this.host = process.env.VUE_APP_API_BASE_URL;
         this.userinfo = JSON.parse(sessionStorage.getItem("user"));
         this.getTaskMaster();
+        this.getStatusData("202103");
     },
     methods:{
         getTaskMaster(){
@@ -34,7 +37,6 @@ export default{
             .then((response) =>{
                 let List = []
                 List.push({ text: "部署名", value: "Column"+0})
-                console.log(response.data)
                 let column_Length = response.data.length
                 for(let counter=0;counter<column_Length;counter++){
                     let data = response.data[counter]
@@ -42,6 +44,11 @@ export default{
                 }
                 this.taskLength = column_Length;
                 this.taskListColumns = List;
+            });
+        },
+        getStatusData(month){
+            api.get(this.host+"/ExState/"+month+"/list/")
+            .then((response) =>{
             });
         },
     }

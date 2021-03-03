@@ -32,35 +32,46 @@ class ExStateFilter(filters.FilterSet):
     class Meta:
         model = ExState
         fields = '__all__'
-#マスターからデータを取得する
+
 class GetDeptsMaster(generics.ListAPIView):
+    """部署マスターから一覧を取得する"""
     queryset = DeptsMaster.objects.all()
     serializer_class = DeptsSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+
 class GetTasksMaster(generics.ListAPIView):
+    """タスクマスターから一覧を取得する"""
     queryset = TasksMaster.objects.all()
     serializer_class = TasksSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
-    
+#リストを全件数取得する
 class ExStateListAPIView(generics.ListAPIView):
     """一覧の総取得"""
     queryset = ExState.objects.all()
     serializer_class = ExStateSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
-#Filterを用いて検索を行う
+
+
 class ExStateListMonthAPIView(views.APIView):
+    """月を指定して取得する"""
     def get(self,request,TargetMonth,*args,**kwargs):
-        #フィルターをどうかけるか
         filterset = ExStateFilter(request.query_params,queryset=ExState.objects.filter(TargetMonth=TargetMonth).order_by('depart_id','task_id'))
         if not filterset.is_valid():
             raise ValidationError(filterset.errors)
         serializer = ExStateSerializer(instance=filterset.qs,many=True)
         return Response(serializer.data,status.HTTP_200_OK)
 
-        
+class ExStateListDeptMonthAPIView(views.APIView):
+    """月と部署を選択して取得する"""
+    def get(self,request,TargetMonth,depart_id,*args,**kwargs):
+        filterset = ExStateFilter(request.query_params,queryset=ExState.objects.filter(TargetMonth=TargetMonth,depart_id=depart_id).order_by('task_id',))
+        if not filterset.is_valid():
+            raise ValidationError(filterset.errors)
+        serializer = ExStateSerializer(instance=filterset.qs,many=True)
+        return Response(serializer.data,status.HTTP_200_OK)
 
 class ExStateRetriveAPIView(generics.RetrieveAPIView):
     """指定IDの詳細取得"""

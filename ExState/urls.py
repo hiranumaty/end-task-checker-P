@@ -12,6 +12,8 @@ urlpatterns = [
      #TargetMonthでの絞り込み
      path('ExState/<str:TargetMonth>/list/',
           views.ExStateListMonthAPIView.as_view()),
+     path('ExState/<str:TargetMonth>/<str:depart_id>/list/',
+          views.ExStateListDeptMonthAPIView.as_view()),
      path('GetDeptsMaster/',
           views.GetDeptsMaster.as_view()),
      path('GetTaskMaster/',
