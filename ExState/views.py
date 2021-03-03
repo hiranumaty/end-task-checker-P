@@ -46,7 +46,7 @@ class GetTasksMaster(generics.ListAPIView):
     serializer_class = TasksSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
-#リストを全件数取得する
+
 class ExStateListAPIView(generics.ListAPIView):
     """一覧の総取得"""
     queryset = ExState.objects.all()

@@ -3,7 +3,10 @@ from .models import ExState
 
 
 class ExStateSerializer(serializers.ModelSerializer):
-    """タスク消化状況モデルのシリアライザ"""
+    """
+    タスク消化状況モデルのシリアライザ
+    結合しているマスターテーブルから部門名とタスク名を取得する
+    """
     class Meta:
         model = ExState
         fields = [
@@ -15,7 +18,6 @@ class ExStateSerializer(serializers.ModelSerializer):
             'TargetMonth',
             'toDoFlg']
 
-    # 結合しているマスターテーブルから部門名とタスク名を取得する
     deploy_id = serializers.CharField(source='depart.id')
     deploy_name = serializers.CharField(source='depart.deploy_name')
     Task_id = serializers.CharField(source='task.id')
