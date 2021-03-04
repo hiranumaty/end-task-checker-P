@@ -26,11 +26,12 @@ export default{
             toDoDatas:[],
         }
     },
-    created(){
+    async created(){
         this.host = process.env.VUE_APP_API_BASE_URL;
         this.userinfo = JSON.parse(sessionStorage.getItem("user"))
-        this.getTaskMaster()
-        this.getStatusData("202103")
+        await this.getTaskMaster()
+        await this.getDepts()
+        await this.getStatusData("202103")
     },
     methods:{
         getTaskMaster(){
@@ -57,17 +58,15 @@ export default{
                     List.push(data["id"])
                 }
             });
-            return List;
+            this.DeptList = List
         },
         getStatusData(month){
-            let DeptList = this.getDepts();
+            let DeptList = this.DeptList
             console.log(DeptList)
-            for(let dept in DeptList){
-                api.get(this.host+"/ExState/"+month+"/"+dept+"/list/")
-                .then((response)=>{
-                    console.log(response)
-                });
-            }  
+            console.log(month)
+            for(let counter=0;counter<DeptList.length;counter++){
+                console.log(DeptList[counter])
+            }
         },
     }
 };
