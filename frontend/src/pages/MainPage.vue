@@ -30,7 +30,6 @@ export default{
         this.host = process.env.VUE_APP_API_BASE_URL;
         this.userinfo = JSON.parse(sessionStorage.getItem("user"))
         await this.getTaskMaster()
-        await this.getDepts()
         await this.getStatusData("202103")
     },
     methods:{
@@ -48,25 +47,26 @@ export default{
                 this.taskListColumns = List;
             });
         },
-        getDepts(){
-            let List = []
+        getStatusData(month){
+            let DeptList = new Array();
+            console.log(month)
+            DeptList = [];
             api.get(this.host+"/GetDeptsMaster/")
             .then((response)=>{
                 let dept_length = response.data.length
                 for(let counter=0;counter<dept_length;counter++){
                     let data = response.data[counter]
-                    List.push(data["id"])
+                    DeptList.push(data["id"])
+                }
+                this.DeptList = DeptList
+                for(let counter=0;counter<this.DeptList.length;counter++){
+                    api.get(this.host+"/ExState/"+month+"/"+DeptList[counter]+"/list/")
+                    .then((response)=>{
+                        console.log(response)
+                    });
                 }
             });
-            this.DeptList = List
-        },
-        getStatusData(month){
-            let DeptList = this.DeptList
-            console.log(DeptList)
-            console.log(month)
-            for(let counter=0;counter<DeptList.length;counter++){
-                console.log(DeptList[counter])
-            }
+                
         },
     }
 };
