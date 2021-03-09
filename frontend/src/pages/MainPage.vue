@@ -5,6 +5,7 @@
         <v-data-table
             :headers = "taskListColumns"
             :items = "toDoDatas"
+            @click:row = "clickRow"
         >
         </v-data-table>
     </v-app>
@@ -64,6 +65,7 @@ export default{
                     .then((response)=>{
                         let data =  response.data
                         let item = {}
+                        console.log(data)
                         for (let dtcounter=0;dtcounter<data.length;dtcounter++){
                             if(dtcounter==0){
                                 item["Column"+dtcounter] = data[dtcounter]["deploy_name"]
@@ -80,6 +82,9 @@ export default{
             });
                 
         },
+        clickRow(row){
+            console.log(row)
+        }
     }
 };
 </script>
