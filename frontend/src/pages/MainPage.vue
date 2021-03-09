@@ -41,15 +41,16 @@ export default{
                 let column_Length = response.data.length
                 for(let counter=0;counter<column_Length;counter++){
                     let data = response.data[counter]
-                    List.push({text:data["Task_name"],value:"Column"+counter+1})
+                    List.push({text:data["Task_name"],value:"Column"+(counter+1)})
                 }
                 this.taskLength = column_Length;
                 this.taskListColumns = List;
             });
         },
         getStatusData(month){
+            let toDoDatas = new Array();
             let DeptList = new Array();
-            console.log(month)
+            toDoDatas = [];
             DeptList = [];
             api.get(this.host+"/GetDeptsMaster/")
             .then((response)=>{
@@ -58,13 +59,24 @@ export default{
                     let data = response.data[counter]
                     DeptList.push(data["id"])
                 }
-                this.DeptList = DeptList
-                for(let counter=0;counter<this.DeptList.length;counter++){
-                    api.get(this.host+"/ExState/"+month+"/"+DeptList[counter]+"/list/")
+                for (let key in DeptList){
+                    api.get(this.host+"/ExState/"+month+"/"+DeptList[key]+"/list/")
                     .then((response)=>{
-                        console.log(response)
+                        let data =  response.data
+                        let item = {}
+                        for (let dtcounter=0;dtcounter<data.length;dtcounter++){
+                            if(dtcounter==0){
+                                item["Column"+dtcounter] = data[dtcounter]["deploy_name"]
+                            }
+                            let text = (data[dtcounter]["toDoFlg"] == true) ? "済":"未"
+                            item["Column"+(dtcounter+1)] = text
+                        }
+                        console.log(item)
+                        toDoDatas.push(item)
                     });
                 }
+                this.toDoDatas = toDoDatas
+                this.DeptList = DeptList
             });
                 
         },
