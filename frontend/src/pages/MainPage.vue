@@ -13,7 +13,7 @@
                 <template v-for="cell in toDodata">
                     <td :key="cell.index">
                         {{cell.text}} 
-                        <button v-if="cell.id!=''" :id="cell.id">変更</button>
+                        <button v-if="cell.id!=''" :id="cell.id" @click="ChangeState">変更</button>
                     </td>
                 </template>
             </tr>
@@ -94,6 +94,11 @@ export default{
             });
                 
         },
+        ChangeState(event){
+            let id = event.currentTarget.id;
+            console.log(id)
+            this.$router.go(this.$route.path)
+        }
     }
 };
 </script>

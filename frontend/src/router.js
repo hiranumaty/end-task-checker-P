@@ -16,6 +16,7 @@ const router= new VueRouter({
         {
             path: '/',
             component:HomePage,
+            name:'Root',
             meta:{requiresAuth:true}
         },
         {
@@ -25,6 +26,7 @@ const router= new VueRouter({
         {
             path:'/MainPage',
             component:MainPage,
+            name:'MainPage',
             meta:{requiresAuth:true}
         },
         {
