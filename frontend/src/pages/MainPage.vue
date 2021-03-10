@@ -2,12 +2,23 @@
     <v-app>
         <GlobalHeader />
         <GlobalMessage />
-        <v-data-table
-            :headers = "taskListColumns"
-            :items = "toDoDatas"
-            @click:row = "clickRow"
-        >
-        </v-data-table>
+        <table>
+            <tr class="header">
+                <template v-for="Column in taskListColumns">
+                    <th :key="Column.index">{{Column.text}}</th>
+                </template>
+            </tr>
+           <template v-for="toDodata in toDoDatas">
+            <tr :key="toDodata.index">
+                <template v-for="cell in toDodata">
+                    <td :key="cell.index">
+                        {{cell.text}} 
+                        <button v-if="cell.id!=''" :id="cell.id">変更</button>
+                    </td>
+                </template>
+            </tr>
+           </template>
+        </table>
     </v-app>
 </template>
 <script>
@@ -68,10 +79,11 @@ export default{
                         console.log(data)
                         for (let dtcounter=0;dtcounter<data.length;dtcounter++){
                             if(dtcounter==0){
-                                item["Column"+dtcounter] = data[dtcounter]["deploy_name"]
+                                item["Column"+dtcounter] = {text:data[dtcounter]["deploy_name"],id:""}
                             }
                             let text = (data[dtcounter]["toDoFlg"] == true) ? "済":"未"
-                            item["Column"+(dtcounter+1)] = text
+                            let link_id = data[dtcounter]["id"]
+                            item["Column"+(dtcounter+1)] = {text:text,id:link_id}
                         }
                         console.log(item)
                         toDoDatas.push(item)
@@ -82,9 +94,6 @@ export default{
             });
                 
         },
-        clickRow(row){
-            console.log(row)
-        }
     }
 };
 </script>
