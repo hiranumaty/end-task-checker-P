@@ -11,9 +11,9 @@
            <template v-for="toDodata in toDoDatas">
             <tr :key="toDodata.index">
                 <template v-for="cell in toDodata">
-                    <td :key="cell.index">
+                    <td :key="cell.index" >
                         {{cell.text}} 
-                        <button v-if="cell.id!=''" :id="cell.id" @click="ChangeState">変更</button>
+                        <button v-if="cell.id!=''" :id="cell.id" :class="cell.text" @click="ChangeState">変更</button>
                     </td>
                 </template>
             </tr>
@@ -95,8 +95,11 @@ export default{
                 
         },
         ChangeState(event){
-            let id = event.currentTarget.id;
-            console.log(id)
+            let id = event.target.id;
+            let flg = event.target.className;
+            let changeFlg = (flg=="未") ? true:false
+            let updateData = {toDoFlg:changeFlg}
+            api.patch(this.host+"/ExState/"+id+"/update/",updateData)
             this.$router.go(this.$route.path)
         }
     }
