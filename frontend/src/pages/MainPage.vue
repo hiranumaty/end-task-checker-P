@@ -111,11 +111,20 @@ export default{
             this.$router.go(this.$route.path)
         },
         SearchMonth(){
-            let month = this.TargetMonth.slice(-2) -1
-            if(month >=0 && month <= 11)
-            {
-                this.$router.replace({path:'/SearchMonth/'+this.TargetMonth})
-            }      
+            if(this.TargetMonth.length==6){
+                let month = this.TargetMonth.slice(-2)-1
+                if(month >=0 && month <= 11)
+                {
+                    if(this.thisMonth==this.TargetMonth)
+                    {
+                        this.$router.replace({path:'/MainPage/'})
+                    }
+                    else
+                    {
+                        this.$router.replace({path:'/SearchMonth/'+this.TargetMonth})
+                    }
+                }
+            }
         }
     }
 };
