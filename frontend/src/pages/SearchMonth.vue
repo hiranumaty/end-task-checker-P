@@ -17,7 +17,6 @@
                 <template v-for="cell in toDodata">
                     <td :key="cell.index" >
                         {{cell.text}}
-                        <button v-if="cell.id!=''" :id="cell.id" :class="cell.text" @click="ChangeState">変更</button>
                     </td>
                 </template>
             </tr>
@@ -47,12 +46,13 @@ export default{
     async created(){
         let today = new Date();
         let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
+        let TargetMonth = this.$route.params['target']
         this.thisMonth = thisMonth
-        this.TargetMonth = thisMonth
+        this.TargetMonth = TargetMonth
         this.host = process.env.VUE_APP_API_BASE_URL;
         this.userinfo = JSON.parse(sessionStorage.getItem("user"))
         await this.getTaskMaster()
-        await this.getStatusData(thisMonth)
+        await this.getStatusData(TargetMonth)
     },
     methods:{
         getTaskMaster(){
@@ -114,7 +114,12 @@ export default{
             let month = this.TargetMonth.slice(-2) -1
             if(month >=0 && month <= 11)
             {
-                this.$router.replace({path:'/SearchMonth/'+this.TargetMonth})
+                if(this.thisMonth==this.TargetMonth)
+                {
+                    this.$router.replace({path:'/MainPage/'})
+                }else{
+                    this.$router.replace({path:'/SearchMonth/'+this.TargetMonth})
+                }
             }      
         }
     }

@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import MainPage from '@/pages/MainPage'
-
+import SearchMonth from '@/pages/SearchMonth'
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -27,6 +27,12 @@ const router= new VueRouter({
             path:'/MainPage',
             component:MainPage,
             name:'MainPage',
+            meta:{requiresAuth:true}
+        },
+        {
+            path:'/SearchMonth/:target',
+            component:SearchMonth,
+            name:'SearchMonth',
             meta:{requiresAuth:true}
         },
         {
