@@ -70,9 +70,7 @@ export default{
             });
         },
         getStatusData(month){
-            let toDoDatas = new Array();
             let DeptList = new Array();
-            toDoDatas = [];
             DeptList = [];
             api.get(this.host+"/GetDeptsMaster/")
             .then((response)=>{
@@ -81,7 +79,14 @@ export default{
                     let data = response.data[counter]
                     DeptList.push(data["id"])
                 }
-                for (let key in DeptList){
+                //ここの領域を非同期させたい
+                this.toDoDatas = this.getStatusPart(month,DeptList)
+                this.DeptList = DeptList
+            });
+        },
+        getStatusPart(month,DeptList){
+            let toDoDatas = []
+            for (let key in DeptList){
                     api.get(this.host+"/ExState/"+month+"/"+DeptList[key]+"/list/")
                     .then((response)=>{
                         let data =  response.data
@@ -97,10 +102,7 @@ export default{
                         toDoDatas.push(item)
                     });
                 }
-                this.toDoDatas = toDoDatas
-                this.DeptList = DeptList
-            });
-                
+            return toDoDatas
         },
         ChangeState(event){
             let id = event.target.id;
