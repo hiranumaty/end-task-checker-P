@@ -27,6 +27,7 @@
 <script>
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
+import ListStatusApi from "@/services/ListStatusApi"
 import api from "@/services/api";
 export default{
     components:{
@@ -44,6 +45,7 @@ export default{
         }
     },
     async created(){
+        let ListStatusAPI = new ListStatusApi()
         let today = new Date();
         let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
         let TargetMonth = this.$route.params['target']
@@ -51,59 +53,10 @@ export default{
         this.TargetMonth = TargetMonth
         this.host = process.env.VUE_APP_API_BASE_URL;
         this.userinfo = JSON.parse(sessionStorage.getItem("user"))
-        await this.getTaskMaster()
-        await this.getStatusData(TargetMonth)
+        await ListStatusAPI.getTaskMaster(this)
+        await ListStatusAPI.getStatusData(this,TargetMonth)
     },
     methods:{
-        getTaskMaster(){
-            api.get(this.host+"/GetTaskMaster/")
-            .then((response) =>{
-                let List = []
-                List.push({ text: "部署名", value: "Column"+0})
-                let column_Length = response.data.length
-                for(let counter=0;counter<column_Length;counter++){
-                    let data = response.data[counter]
-                    List.push({text:data["Task_name"],value:"Column"+(counter+1)})
-                }
-                this.taskLength = column_Length;
-                this.taskListColumns = List;
-            });
-        },
-        getStatusData(month){
-            let DeptList = new Array();
-            DeptList = [];
-            api.get(this.host+"/GetDeptsMaster/")
-            .then((response)=>{
-                let dept_length = response.data.length
-                for(let counter=0;counter<dept_length;counter++){
-                    let data = response.data[counter]
-                    DeptList.push(data["id"])
-                }
-                //ここの領域を非同期させたい
-                this.toDoDatas = this.getStatusPart(month,DeptList)
-                this.DeptList = DeptList
-            });
-        },
-        getStatusPart(month,DeptList){
-            let toDoDatas = []
-            for (let key in DeptList){
-                    api.get(this.host+"/ExState/"+month+"/"+DeptList[key]+"/list/")
-                    .then((response)=>{
-                        let data =  response.data
-                        let item = {}
-                        for (let dtcounter=0;dtcounter<data.length;dtcounter++){
-                            if(dtcounter==0){
-                                item["Column"+dtcounter] = {text:data[dtcounter]["deploy_name"],id:""}
-                            }
-                            let text = (data[dtcounter]["toDoFlg"] == true) ? "済":"未"
-                            let link_id = data[dtcounter]["id"]
-                            item["Column"+(dtcounter+1)] = {text:text,id:link_id}
-                        }
-                        toDoDatas.push(item)
-                    });
-                }
-            return toDoDatas
-        },
         ChangeState(event){
             let id = event.target.id;
             let flg = event.target.className;
