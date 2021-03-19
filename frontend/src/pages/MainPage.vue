@@ -3,10 +3,10 @@
         <GlobalHeader />
         <GlobalMessage />
         <div name="SearchField">
-            <input type="text" v-model="TargetMonth">
-            <button @click="SearchMonth">検索</button>
+            <input class="SearchMonthField" type="text" v-model="TargetMonth" maxlength="6">
+            <button @click="SearchMonth" class="SearchButton">検索</button>
         </div>
-        <table>
+        <table  class="DataTable">
             <tr class="header">
                 <template v-for="Column in taskListColumns">
                     <th :key="Column.index">{{Column.text}}</th>
@@ -15,9 +15,12 @@
            <template v-for="toDodata in toDoDatas">
             <tr :key="toDodata.index">
                 <template v-for="cell in toDodata">
-                    <td :key="cell.index" >
+                    <td :key="cell.index">
                         {{cell.text}}
-                        <button v-if="cell.id!=''" :id="cell.id" :class="cell.text" @click="ChangeState">変更</button>
+                        <button type="button" class="DataBTN"
+                        v-if="cell.id!=''" :id="cell.id" v-bind:class="cell.text" @click="ChangeState">
+                            変更
+                        </button>
                     </td>
                 </template>
             </tr>
@@ -26,6 +29,7 @@
     </v-app>
 </template>
 <script>
+import './stylesheet/ListStyle.css'
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
 import ListStatusApi from "@/services/ListStatusApi"
@@ -59,8 +63,14 @@ export default{
     methods:{
         ChangeState(event){
             let id = event.target.id;
-            let flg = event.target.className;
-            let changeFlg = (flg=="未") ? true:false
+            let flg = event.target.classList;
+            let changeFlg;
+            if(flg.contains('未') == true){
+                changeFlg = true
+            }else if(flg.contains('済')==true){
+                changeFlg = false
+            }
+            changeFlg = (flg[1]=="未") ? true:false
             let updateData = {toDoFlg:changeFlg}
             api.patch(this.host+"/ExState/"+id+"/update/",updateData)
             this.$router.go(this.$route.path)

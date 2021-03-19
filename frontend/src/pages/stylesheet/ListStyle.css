@@ -1,0 +1,21 @@
+.SearchMonthField{
+    background-color:#e6e6fa;
+    
+}
+.SearchButton{
+    border:solid;
+}
+.DataTable{
+    border: 1px #2A2A2A solid;
+}
+.DataTable th{
+    text-align: center;
+    border: 1px #2A2A2A solid;
+}
+.DataTable td{
+    text-align: center;
+    border: 1px #2A2A2A solid;
+}
+.DataBTN{
+    border: 1px #2A2A2A solid
+}

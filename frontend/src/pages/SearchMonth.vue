@@ -3,10 +3,10 @@
         <GlobalHeader />
         <GlobalMessage />
         <div name="SearchField">
-            <input type="text" v-model="TargetMonth">
-            <button @click="SearchMonth">検索</button>
+            <input  class="SearchMonthField" type="text" v-model="TargetMonth" maxlength="6">
+            <button @click="SearchMonth" class="SearchButton">検索</button>
         </div>
-        <table>
+        <table  class="DataTable">
             <tr class="header">
                 <template v-for="Column in taskListColumns">
                     <th :key="Column.index">{{Column.text}}</th>
@@ -15,7 +15,7 @@
            <template v-for="toDodata in toDoDatas">
             <tr :key="toDodata.index">
                 <template v-for="cell in toDodata">
-                    <td :key="cell.index" >
+                    <td :key="cell.index">
                         {{cell.text}}
                     </td>
                 </template>
@@ -25,6 +25,7 @@
     </v-app>
 </template>
 <script>
+import "./stylesheet/ListStyle.css"
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
 import ListStatusApi from "@/services/ListStatusApi"

@@ -1,5 +1,4 @@
 import api from './api'
-
 class ListStatusApi{
     getTaskMaster(parent){
         api.get(parent.host+"/GetTaskMaster/")
@@ -26,14 +25,17 @@ class ListStatusApi{
                 DeptList.push(data["id"])
             }
             //ここの領域を非同期させたい
-            parent.toDoDatas = this.getStatusPart(parent,month,DeptList)
+            this.getStatusPart(parent,month,DeptList)
+            .then(response =>{
+                parent.toDoDatas = response
+            });
             parent.DeptList = DeptList
         });
     }
-    getStatusPart(parent,month,DeptList){
+    async getStatusPart(parent,month,DeptList){
         let toDoDatas = []
-        for (let key in DeptList){
-                api.get(parent.host+"/ExState/"+month+"/"+DeptList[key]+"/list/")
+        for await(let DeptKey of DeptList){
+            await api.get(parent.host+"/ExState/"+month+"/"+DeptKey+"/list/")
                 .then((response)=>{
                     let data =  response.data
                     let item = {}
@@ -47,7 +49,7 @@ class ListStatusApi{
                     }
                     toDoDatas.push(item)
                 });
-            }
+        }
         return toDoDatas
     }
 }
