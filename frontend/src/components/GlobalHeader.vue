@@ -18,10 +18,10 @@
     export default{
         computed: {
             user_id:function(){
-                return this.$store.getters['/user_id']
+                return this.$store.getters['user_id']
             },
             isLoggedIn:function(){
-                return this.$store.getters['/isLoggedIn']
+                return this.$store.getters['isLoggedIn']
             },
         },
         methods:{

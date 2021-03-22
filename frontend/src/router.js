@@ -5,8 +5,9 @@ import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import MainPage from '@/pages/MainPage'
 import SearchMonth from '@/pages/SearchMonth'
-import store from '@/store'
 
+import AdminMenu from '@/pages/AdminMenu'
+import store from '@/store'
 Vue.use(VueRouter)
 
 const router= new VueRouter({
@@ -22,6 +23,12 @@ const router= new VueRouter({
         {
             path:'/login',
             component:LoginPage
+        },
+        {
+            path:'/AdminMenu',
+            component:AdminMenu,
+            name:'AdminMenu',
+            meta:{requiresAuth:true}
         },
         {
             path:'/MainPage',

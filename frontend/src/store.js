@@ -53,7 +53,7 @@ const authModule = {
                     const user = response.data
                     context.commit('set',{user_id:user.user_id})
                     sessionStorage.setItem('user',JSON.stringify(user))
-                    console.log(context)  
+                    //console.log(context)  
                     return user
                 })
         }
@@ -116,5 +116,5 @@ const store = new Vuex.Store({
         message:messageModule
     }
 })
-console.log(store) //確認用
+//console.log(store) 
 export default store
