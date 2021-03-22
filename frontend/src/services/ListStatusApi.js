@@ -8,7 +8,7 @@ class ListStatusApi{
             let column_Length = response.data.length
             for(let counter=0;counter<column_Length;counter++){
                 let data = response.data[counter]
-                List.push({text:data["Task_name"],value:"Column"+(counter+1)})
+                List.push({text:data["Task_name"],value:"Column"+data["id"]})
             }
             parent.taskLength = column_Length;
             parent.taskListColumns = List;
@@ -24,7 +24,6 @@ class ListStatusApi{
                 let data = response.data[counter]
                 DeptList.push(data["id"])
             }
-            //ここの領域を非同期させたい
             this.getStatusPart(parent,month,DeptList)
             .then(response =>{
                 parent.toDoDatas = response
@@ -35,21 +34,32 @@ class ListStatusApi{
     async getStatusPart(parent,month,DeptList){
         let toDoDatas = []
         for await(let DeptKey of DeptList){
+            //ここが少し怪しいと思う（タスク有効無効の兼ね合いで)
             await api.get(parent.host+"/ExState/"+month+"/"+DeptKey+"/list/")
                 .then((response)=>{
                     let data =  response.data
                     let item = {}
+                    for(let TaskKey in parent.taskListColumns)
+                    {
+                        //存在しないデータを空白に初期化
+                        let ColumnNo = parent.taskListColumns[TaskKey]["value"]
+                        item[ColumnNo] = {text:"",id:""}
+                    }
                     for (let dtcounter=0;dtcounter<data.length;dtcounter++){
+                        //なぜ上書きにならずColumnColumnになるの
                         if(dtcounter==0){
                             item["Column"+dtcounter] = {text:data[dtcounter]["deploy_name"],id:""}
                         }
                         let text = (data[dtcounter]["toDoFlg"] == true) ? "済":"未"
                         let link_id = data[dtcounter]["id"]
-                        item["Column"+(dtcounter+1)] = {text:text,id:link_id}
+                        item["Column"+data[dtcounter]["Task_id"]] = {text:text,id:link_id}
                     }
                     toDoDatas.push(item)
+                    console.log(item)
                 });
         }
+        //テーブルがずれることの対処を考えたい
+        console.log(toDoDatas)
         return toDoDatas
     }
 }
