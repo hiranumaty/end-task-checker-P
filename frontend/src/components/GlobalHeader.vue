@@ -3,6 +3,7 @@
     <div id="header">
         <b-navbar type="dark" variant="dark">
             <a class="navbar-brand" href="/">DRF Sample</a>
+            <a class="navbar-brand" href="/AdminMenu" v-if="$route.meta.requiresAuth">管理画面へ</a>
             <b-navbar-nav class="ml-auto" v-if="$route.meta.requiresAuth">
                 <b-nav-item-dropdown right v-if="isLoggedIn">
                     <template slot="button-content">{{ user_id }}</template>
@@ -18,11 +19,19 @@
     export default{
         computed: {
             user_id:function(){
-                return this.$store.getters['user_id']
+                return this.data['user_id']
             },
             isLoggedIn:function(){
-                return this.$store.getters['isLoggedIn']
+                return this.data['is_activate']
             },
+        },
+        data(){
+            return{
+                data:[]
+            }
+        },
+        created(){
+           this.data = JSON.parse(sessionStorage.getItem('user')) ;
         },
         methods:{
             clickLogout:function(){
@@ -32,7 +41,7 @@
             },clickLogin:function(){
                 this.$store.dispatch('clearMessages')
                 this.$router.replace('login')
-            }
+            },
         }
     }
 </script>

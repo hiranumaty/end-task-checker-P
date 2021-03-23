@@ -53,7 +53,6 @@ const router= new VueRouter({
 router.beforeEach((to,from,next) =>{
     const isLoggedIn = store.getters['isLoggedIn']
     const token = sessionStorage.getItem('token')
-
     if(to.matched.some(record => record.meta.requiresAuth))
     {
         //ログイン状態の場合

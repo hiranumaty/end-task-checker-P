@@ -8,6 +8,7 @@ const authModule = {
     strict: process.env.NODE_ENV !== 'production',
     namedspaced:true,
     state:{
+        //user_idがsetされない問題
         isLoggedIn:false,
         user_id:'',
     },
@@ -38,7 +39,10 @@ const authModule = {
                 //response.data内部にrefresh accessありaccessを認証トークンに登録した
                 sessionStorage.setItem('token',response.data.access)
                 return context.dispatch('reload')
-                    .then(user => user)
+                .then(user => {
+                    console.log(user)
+                    context.commit('set',{user_id:user.user_id})
+                });
             })
         },
         logout(context){
@@ -49,13 +53,12 @@ const authModule = {
         reload(context){
             var host = process.env.VUE_APP_API_BASE_URL;
             return api.get(host+'/auth/users/me/')
-                .then(response =>{
-                    const user = response.data
-                    context.commit('set',{user_id:user.user_id})
-                    sessionStorage.setItem('user',JSON.stringify(user))
-                    //console.log(context)  
-                    return user
-                })
+            .then(response =>{
+                const user = response.data
+                context.commit('set',{user_id:user.user_id})
+                sessionStorage.setItem('user',JSON.stringify(user))
+                return user
+            })
         }
     }
 }
@@ -116,5 +119,4 @@ const store = new Vuex.Store({
         message:messageModule
     }
 })
-//console.log(store) 
 export default store
