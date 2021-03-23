@@ -11,7 +11,6 @@ import store from '@/store'
 Vue.use(VueRouter)
 
 const router= new VueRouter({
-    //先にStoreを完成させて認証の状態の取得を実装すべきか
     mode:'history',
     routes:[
         {

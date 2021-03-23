@@ -41,13 +41,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=5)
     # このシステムを使うことを許すか
     is_activate = models.BooleanField(verbose_name='部門長権限', default=False)
-    # 管理者の権限を与えるか
+    #Vueでの管理者ページへの権限
     is_staff = models.BooleanField(verbose_name='管理者権限', default=False)
     is_superuser = models.BooleanField(verbose_name='管理者特権', default=False)
 
     email = models.EmailField(verbose_name='メールアドレス', blank=False, null=True,)
     USERNAME_FIELD = 'user_id'
-    REQUIRED_FIELDS = ['is_activate', ]
+    REQUIRED_FIELDS = ['is_activate', 'is_staff']
     objects = UserManager()
 
     def __str__(self):

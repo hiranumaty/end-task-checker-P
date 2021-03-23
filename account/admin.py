@@ -9,7 +9,7 @@ from .models import User
 class CustomeUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = User
-        fields = ('user_id',)
+        fields = ('user_id','is_activate', 'is_staff')
 
 
 class CustomeUserChangeForm(UserChangeForm):
@@ -20,7 +20,7 @@ class CustomeUserChangeForm(UserChangeForm):
 
 class CustomeUserAdmin(UserAdmin):
     model = User
-    fieldsets = (
+    fieldsets  = (
         ("ユーザー情報", {
             'fields': ('user_id', 'password', 'email')}
          ), ("権限", {

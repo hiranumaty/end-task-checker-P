@@ -55,11 +55,8 @@ class ListStatusApi{
                         item["Column"+data[dtcounter]["Task_id"]] = {text:text,id:link_id}
                     }
                     toDoDatas.push(item)
-                    console.log(item)
                 });
         }
-        //テーブルがずれることの対処を考えたい
-        console.log(toDoDatas)
         return toDoDatas
     }
 }

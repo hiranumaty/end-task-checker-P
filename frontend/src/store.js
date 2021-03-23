@@ -10,21 +10,18 @@ const authModule = {
     state:{
         //user_idがsetされない問題
         isLoggedIn:false,
-        user_id:'',
     },
     getters:{
         isLoggedIn:state => state.isLoggedIn,
-        user_id:state => state.user_id
     },
     mutations:{
         set(state,payload){
             //accountにgetメソッドが必要か
-            state.user_id = payload.user_id
+            console.log(payload)
             state.isLoggedIn = true
         },
         clear(state){
             state.isLoggedIn = false
-            state.user_id = ''
         }
     },
     actions:{
@@ -40,7 +37,6 @@ const authModule = {
                 sessionStorage.setItem('token',response.data.access)
                 return context.dispatch('reload')
                 .then(user => {
-                    console.log(user)
                     context.commit('set',{user_id:user.user_id})
                 });
             })
@@ -55,7 +51,7 @@ const authModule = {
             return api.get(host+'/auth/users/me/')
             .then(response =>{
                 const user = response.data
-                context.commit('set',{user_id:user.user_id})
+                context.commit('set',{user:user})
                 sessionStorage.setItem('user',JSON.stringify(user))
                 return user
             })
