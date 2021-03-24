@@ -13,6 +13,15 @@
                     <th>有効開始日</th>
                     <th></th>
                 </tr>
+                <template v-for="Dept in DeptList">
+                    <tr :key="Dept.index">
+                        <th>{{Dept["id"]}}</th>
+                        <th>{{Dept["deploy_name"]}}</th>
+                        <th>{{Dept["valid_text"]}}</th>
+                        <th>{{Dept["valid_start"]}}</th>
+                        <th>変更</th>
+                    </tr>
+                </template>
             </table>
         </div>
         <div>
@@ -25,6 +34,15 @@
                     <th>有効開始日</th>
                     <th></th>
                 </tr>
+                <template v-for="Task in taskList">
+                    <tr :key="Task.index">
+                        <th>{{Task["id"]}}</th>
+                        <th>{{Task["Task_name"]}}</th>
+                        <th>{{Task["valid_text"]}}</th>
+                        <th>{{Task["valid_start"]}}</th>
+                        <th>変更</th>
+                    </tr>
+                </template>
             </table>
         </div>
         <button id="ToMain" @click="goMain">メインページへ</button>

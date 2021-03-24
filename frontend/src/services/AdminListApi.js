@@ -7,10 +7,10 @@ class AdminListApi{
             for(let counter=0;counter<response.data.length;counter++)
             {
                 let data = response.data[counter]
+                data["valid_text"] = (data["valid_flg"] ? "有効":"無効")
                 taskList.push(data)
             }
         });
-        console.log(taskList)
         return taskList
     }
     GetDeptsMaster(parent){
@@ -20,10 +20,10 @@ class AdminListApi{
             for(let counter=0;counter<response.data.length;counter++)
             {
                 let data = response.data[counter]
+                data["valid_text"] = (data["valid_flg"] ? "有効":"無効")
                 DeptList.push(data)
             }
         });
-        console.log(DeptList)
         return DeptList
     }
 }
