@@ -10,6 +10,7 @@ class AdminListApi{
                 taskList.push(data)
             }
         });
+        console.log(taskList)
         return taskList
     }
     GetDeptsMaster(parent){
@@ -22,6 +23,7 @@ class AdminListApi{
                 DeptList.push(data)
             }
         });
+        console.log(DeptList)
         return DeptList
     }
 }

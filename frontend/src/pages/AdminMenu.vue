@@ -46,9 +46,10 @@ export default{
         }
     },
     async created(){
-        let AdminListApi = new AdminListApi();
-        this.DeptList = AdminListApi.GetDeptsMaster(this);
-        this.taskList = AdminListApi.getTaskMaster(this);
+        let AdminListAPI = new AdminListApi();
+        this.host = process.env.VUE_APP_API_BASE_URL;
+        this.DeptList = AdminListAPI.GetDeptsMaster(this);
+        this.taskList = AdminListAPI.getTaskMaster(this);
     },
     methods:{
         goMain(){
