@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.jwt')),
     path('api/v1/', include('ExState.urls')),
+    path('api/v1/MasterControll/',include('MasterData.urls')),
     # re_path('',RedirectView.as_view(url='/')),
 ]

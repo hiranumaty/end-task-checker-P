@@ -26,5 +26,26 @@ class AdminListApi{
         });
         return DeptList
     }
+
+    getDeptDetail(parent,id){
+        let DeptDetail=[];
+        api.get(parent.host+"/MasterControll/getDepts/"+id+"/detail")
+        .then((response)=>{
+            let DeptData = response.data
+            DeptData['valid_text'] = (DeptData['valid_flg']? "有効":"無効")
+            DeptDetail.push(DeptData)
+        });
+        return DeptDetail
+    }
+    getTaskDetail(parent,id){
+        let TaskDetail =[];
+        api.get(parent.host+"/MasterControll/getTasks/"+id+"/detail")
+        .then((response)=>{
+            let TaskData = response.data
+            TaskData['valid_text'] = (TaskData['valid_flg']?"有効":"無効")
+            TaskDetail.push(TaskData)
+        });
+        return TaskDetail
+    }
 }
 export default AdminListApi

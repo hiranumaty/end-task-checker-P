@@ -9,15 +9,25 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 class GetDeptsMaster(generics.ListAPIView):
-    """部署マスターから一覧を取得する"""
+    """部署マスターから一覧を取得する(ExStateでの同名と同様)"""
     queryset = DeptsMaster.objects.all()
     serializer_class = DeptsSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 
 class GetTasksMaster(generics.ListAPIView):
-    """タスクマスターから一覧を取得する"""
+    """タスクマスターから一覧を取得する(ExStateでの同名と同様)"""
     queryset = TasksMaster.objects.all()
     serializer_class = TasksSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+
+class GetDeptsRetriveAPIView(generics.RetrieveAPIView):
+    queryset = DeptsMaster.objects.all()
+    serializer_class = DeptsSerializer
+    lookup_fields = '__all__'
+
+class GetTasksRetriveAPIView(generics.RetrieveAPIView):
+    queryset = TasksMaster.objects.all()
+    serializer_class = TasksSerializer
+    lookup_fields = '__all__'

@@ -7,6 +7,8 @@ import MainPage from '@/pages/MainPage'
 import SearchMonth from '@/pages/SearchMonth'
 
 import AdminMenu from '@/pages/AdminMenu'
+import DeptMasterDetail from '@/pages/DeptMasterDetail'
+import TaskMasterDetail from '@/pages/TaskMasterDetail'
 import store from '@/store'
 Vue.use(VueRouter)
 
@@ -21,12 +23,25 @@ const router= new VueRouter({
         },
         {
             path:'/login',
+            name:'login',
             component:LoginPage
         },
         {
             path:'/AdminMenu',
             component:AdminMenu,
             name:'AdminMenu',
+            meta:{requiresAuth:true}
+        },
+        {
+            path:'/DeptDetail/:target',
+            component:DeptMasterDetail,
+            name:'DeptDetail',
+            meta:{requiresAuth:true}
+        },
+        {
+            path:'/TaskDetail/:target',
+            component:TaskMasterDetail,
+            name:'TaskDetail',
             meta:{requiresAuth:true}
         },
         {

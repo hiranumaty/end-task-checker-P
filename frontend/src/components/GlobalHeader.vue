@@ -37,10 +37,10 @@
             clickLogout:function(){
                 this.$store.dispatch('logout')
                 this.$store.dispatch('setInfoMessage',{message:'ログアウトしました'})
-                this.$router.replace('login')
+                this.$router.replace({path:'/login'})
             },clickLogin:function(){
                 this.$store.dispatch('clearMessages')
-                this.$router.replace('login')
+                this.$router.replace({path:'/login'})
             },
         }
     }

@@ -19,7 +19,7 @@
                         <th>{{Dept["deploy_name"]}}</th>
                         <th>{{Dept["valid_text"]}}</th>
                         <th>{{Dept["valid_start"]}}</th>
-                        <th>変更</th>
+                        <th><button :class="Dept['id']" @click="ModifyDept">変更</button></th>
                     </tr>
                 </template>
             </table>
@@ -40,7 +40,7 @@
                         <th>{{Task["Task_name"]}}</th>
                         <th>{{Task["valid_text"]}}</th>
                         <th>{{Task["valid_start"]}}</th>
-                        <th>変更</th>
+                        <th><button :class="Task['id']" @click="ModifyTask">変更</button></th>
                     </tr>
                 </template>
             </table>
@@ -49,6 +49,7 @@
     </v-app>
 </template>
 <script>
+import './stylesheet/ListStyle.css'
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
 import AdminListApi from "@/services/AdminListApi";
@@ -73,6 +74,14 @@ export default{
         goMain(){
             this.$router.replace({path:'/MainPage'})
         },
+        ModifyDept(event){
+            let id = event.target.className;
+            this.$router.replace({path:'/DeptDetail/'+id})
+        },
+        ModifyTask(event){
+            let id = event.target.className;
+            this.$router.replace({path:'/TaskDetail/'+id})
+        }
     },
-    }
+}
 </script>
