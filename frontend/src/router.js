@@ -9,6 +9,8 @@ import SearchMonth from '@/pages/SearchMonth'
 import AdminMenu from '@/pages/AdminMenu'
 import DeptMasterDetail from '@/pages/DeptMasterDetail'
 import TaskMasterDetail from '@/pages/TaskMasterDetail'
+import CreateTask from '@/pages/CreateTask'
+import CreateDept from '@/pages/CreateDept'
 import store from '@/store'
 Vue.use(VueRouter)
 
@@ -54,6 +56,18 @@ const router= new VueRouter({
             path:'/SearchMonth/:target',
             component:SearchMonth,
             name:'SearchMonth',
+            meta:{requiresAuth:true}
+        },
+        {
+            path:'/CreateTask/',
+            component:CreateTask,
+            name:'CreateTask',
+            meta:{requiresAuth:true}
+        },
+        {
+            path:'/CreateDept/',
+            component:CreateDept,
+            name:'CreateDept',
             meta:{requiresAuth:true}
         },
         {

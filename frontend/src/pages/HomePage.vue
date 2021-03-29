@@ -2,7 +2,7 @@
     <v-app>
         <GlobalHeader />
         <GlobalMessage />
-        <h1>ログイン成功</h1>
+        <h1><router-link :to="{name:'MainPage'}">メインページへ</router-link></h1>
     </v-app>
 </template>
 <script>

@@ -45,7 +45,12 @@
                 </template>
             </table>
         </div>
-        <button id="ToMain" @click="goMain">メインページへ</button>
+        <div>
+            <button @click="CreateTask">新規タスク作成</button>
+            <button @click="CreateDept">新規部署作成</button>
+            <button id="ToMain" @click="goMain">メインページへ</button>
+        </div>
+        
     </v-app>
 </template>
 <script>
@@ -81,6 +86,12 @@ export default{
         ModifyTask(event){
             let id = event.target.className;
             this.$router.replace({path:'/TaskDetail/'+id})
+        },
+        CreateTask(){
+            this.$router.replace({path:'/CreateTask/'})
+        },
+        CreateDept(){
+            this.$router.replace({path:'/CreateDept/'})
         }
     },
 }
