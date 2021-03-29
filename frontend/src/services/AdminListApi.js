@@ -28,6 +28,7 @@ class AdminListApi{
     }
 
     getDeptDetail(parent,id){
+        //部署の詳細を取得する
         let DeptDetail=[];
         api.get(parent.host+"/MasterControll/getDepts/"+id+"/detail")
         .then((response)=>{
@@ -38,6 +39,7 @@ class AdminListApi{
         return DeptDetail
     }
     getTaskDetail(parent,id){
+        //タスクの詳細を取得する
         let TaskDetail =[];
         api.get(parent.host+"/MasterControll/getTasks/"+id+"/detail")
         .then((response)=>{

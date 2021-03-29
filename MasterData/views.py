@@ -27,7 +27,17 @@ class GetDeptsRetriveAPIView(generics.RetrieveAPIView):
     serializer_class = DeptsSerializer
     lookup_fields = '__all__'
 
+class ChangeDeptsAPIView(generics.RetrieveUpdateAPIView):
+    queryset = DeptsMaster.objects.all()
+    serializer_class = DeptsSerializer
+    lookup_fields = '__all__'
+
 class GetTasksRetriveAPIView(generics.RetrieveAPIView):
+    queryset = TasksMaster.objects.all()
+    serializer_class = TasksSerializer
+    lookup_fields = '__all__'
+
+class ChangeTasksAPIView(generics.RetrieveUpdateAPIView):
     queryset = TasksMaster.objects.all()
     serializer_class = TasksSerializer
     lookup_fields = '__all__'
