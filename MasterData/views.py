@@ -22,6 +22,10 @@ class GetTasksMaster(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
 
+class DeptsFilter(filters.FilterSet):
+    class Meta:
+        model = DeptsMaster
+        fields = '__all__'
 class GetDeptsRetriveAPIView(generics.RetrieveAPIView):
     queryset = DeptsMaster.objects.all()
     serializer_class = DeptsSerializer
@@ -32,10 +36,24 @@ class ChangeDeptsAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = DeptsSerializer
     lookup_fields = '__all__'
 
-class CreateDeptsAPIView(generics.CreateAPIView):
-    queryset = DeptsMaster.objects.all()
-    serializer_class = DeptsSerializer
 
+
+class CreateDeptsAPIView(views.APIView):
+
+    def post(self,request,*args,**kwargs):
+        serializer = DeptsSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status.HTTP_201_CREATED)
+
+# class CreateDeptsAPIView(generics.CreateAPIView):
+#     queryset = DeptsMaster.objects.all()
+#     serializer_class = DeptsSerializer
+class TaskFilter(filters.FilterSet):
+    class Meta:
+        model = TasksMaster
+        fields = '__all__'
+ 
 class GetTasksRetriveAPIView(generics.RetrieveAPIView):
     queryset = TasksMaster.objects.all()
     serializer_class = TasksSerializer
@@ -46,6 +64,14 @@ class ChangeTasksAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = TasksSerializer
     lookup_fields = '__all__'
 
-class CreateTasksAPIView(generics.CreateAPIView):
-    queryset = TasksMaster.objects.all()
-    serializer_class = TasksSerializer
+class CreateTasksAPIView(views.APIView):
+
+    def post(self,request,*args,**kwargs):
+        serializer = TasksSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status.HTTP_201_CREATED)
+
+# class CreateTasksAPIView(generics.CreateAPIView):
+#     queryset = TasksMaster.objects.all()
+#     serializer_class = TasksSerializer

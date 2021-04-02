@@ -39,12 +39,16 @@ export default{
             let input_name = document.getElementById("input_name").value;
             let input_start = document.getElementById("input_start").value;
             let nowdate = new Date()
+            console.log(input_id)
+            console.log(input_name)
+            console.log(input_start)
+            console.log(nowdate.toLocaleDateString())
             let newdata={
                 id:input_id,
                 deploy_name:input_name,
                 valid_flg:false,
                 valid_start:input_start,
-                created_at:nowdate.toLocaleString()
+                created_at:nowdate.toLocaleDateString()
             }
             api.post(this.host+"/MasterControll/getDepts/create/",newdata)
             .then(()=>{

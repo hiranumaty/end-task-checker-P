@@ -138,9 +138,11 @@ CORS_ORIGIN_WHITELIST = (
 
 # ログイン後のページURL
 LOGIN_REDIRECT_URL = ''
+APPEND_SLASH = False
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser'
+        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
