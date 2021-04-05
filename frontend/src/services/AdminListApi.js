@@ -30,7 +30,7 @@ class AdminListApi{
     getDeptDetail(parent,id){
         //部署の詳細を取得する
         let DeptDetail=[];
-        api.get(parent.host+"/MasterControll/getDepts/"+id+"/detail")
+        api.get(parent.host+"/MasterControll/getDepts/"+id+"/detail/")
         .then((response)=>{
             let DeptData = response.data
             DeptData['valid_text'] = (DeptData['valid_flg']? "有効":"無効")
@@ -41,7 +41,7 @@ class AdminListApi{
     getTaskDetail(parent,id){
         //タスクの詳細を取得する
         let TaskDetail =[];
-        api.get(parent.host+"/MasterControll/getTasks/"+id+"/detail")
+        api.get(parent.host+"/MasterControll/getTasks/"+id+"/detail/")
         .then((response)=>{
             let TaskData = response.data
             TaskData['valid_text'] = (TaskData['valid_flg']?"有効":"無効")

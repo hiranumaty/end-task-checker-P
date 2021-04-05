@@ -42,18 +42,28 @@ export default{
             console.log(input_id)
             console.log(input_name)
             console.log(input_start)
-            console.log(nowdate.toLocaleDateString())
+            console.log(this.FormatDate(nowdate))
             let newdata={
                 id:input_id,
                 deploy_name:input_name,
                 valid_flg:false,
                 valid_start:input_start,
-                created_at:nowdate.toLocaleDateString()
+                created_at:this.FormatDate(nowdate)
             }
             api.post(this.host+"/MasterControll/getDepts/create/",newdata)
             .then(()=>{
                this.$router.replace({path:'/AdminMenu'}) 
             });
+        },
+        FormatDate(Date){
+            let year  = '' + Date.getFullYear();
+            let month = '' + (Date.getMonth() + 1);
+            let day = '' + Date.getDate()
+            if(month.length < 2)
+                month = '0' + month
+            if(day.length < 2)
+                day = '0' + day
+            return [year,month,day].join('-')
         }
     },
 }
