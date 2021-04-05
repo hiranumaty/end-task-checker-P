@@ -13,10 +13,11 @@
             <tr>
                 <td><input type="text" id="input_id"></td>
                 <td><input type="text" id="input_name"></td>
-                <td><input type="text" id="input_start" ></td>
+                <td><input type="text" id="input_start"></td>
                 <td><button @click="ExCreate">追加</button></td>
             </tr>
         </table>
+        <button @click="goAdmin">管理画面へ</button>
     </v-app>
 </template>
 
@@ -39,10 +40,6 @@ export default{
             let input_name = document.getElementById("input_name").value;
             let input_start = document.getElementById("input_start").value;
             let nowdate = new Date()
-            console.log(input_id)
-            console.log(input_name)
-            console.log(input_start)
-            console.log(this.FormatDate(nowdate))
             let newdata={
                 id:input_id,
                 Task_name:input_name,
@@ -64,6 +61,9 @@ export default{
             if(day.length < 2)
                 day = '0' + day
             return [year,month,day].join('-')
+        },
+        goAdmin(){
+            this.$router.replace({path:'/AdminMenu/'})
         }
     },
 }

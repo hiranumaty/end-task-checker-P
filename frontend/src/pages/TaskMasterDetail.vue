@@ -16,7 +16,7 @@
                         <td><input type="text" id="input_id" v-bind:value="Task['id']" readonly></td>
                         <td><input type="text" id="input_name" v-bind:value="Task['Task_name']"></td>
                         <td><input type="button" id="input_flg" v-bind:value="Task['valid_text']" @click="changeValid_Text"></td>
-                        <td><input type="text" id="input_start" v-bind:value="Task['valid_start']"></td>
+                        <td><input type="text"  id="input_start" v-bind:value="Task['valid_start']"></td>
                         <td><button @click="changeEvent">変更</button></td>
                     </tr>
                 </template>

@@ -101,6 +101,28 @@ router.beforeEach((to,from,next) =>{
                 forceToLoginPage(to,from,next)
             }
         }
+    }
+    else if(to.matched.some(record => record.meta.requiresAdmin))
+    {
+        //ログイン状態の場合
+        if(isLoggedIn){
+            next()
+        }else{
+            //トークンが残っているか
+            if(token!=null){
+                //auth//reloadをreloadに変更
+                store.dispatch('reload')
+                    .then(()=>{
+                        next()
+                    })
+                    .catch(()=>{
+                        forceToLoginPage(to,from,next)
+                    })
+            }else{
+                forceToLoginPage(to,from,next)
+            }
+        }
+   
     }else{
         //ログイン不要なページであればすぐに遷移
         next()
