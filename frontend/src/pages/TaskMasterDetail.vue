@@ -75,7 +75,7 @@ export default{
                     this.$router.replace({path:'/AdminMenu/'})
                 });
             }else{
-                console.log("入力ミス")
+                window.alert("入力ミスです IDは5文字の数字,タスク名は30文字以下,有効開始日はYYYY-MM-DDの形式で有効な日付を入力してください")
             }
             
         },
