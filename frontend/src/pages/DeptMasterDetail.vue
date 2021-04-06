@@ -22,7 +22,6 @@
                 </template>
             </table>
         </div>
-        <button @click="goAdmin">管理画面へ</button>
     </v-app>
 </template>
         
@@ -72,9 +71,6 @@ export default{
                 this.$router.replace({path:'/AdminMenu/'})
             });
         },
-        goAdmin(){
-            this.$router.replace({path:'/AdminMenu/'})
-        }
     }
 }
 </script>

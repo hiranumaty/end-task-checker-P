@@ -17,7 +17,6 @@
                 <td><button @click="ExCreate">追加</button></td>
             </tr>
         </table>
-        <button @click="goAdmin">管理画面へ</button>
     </v-app>
 </template>
 
@@ -62,9 +61,6 @@ export default{
                 day = '0' + day
             return [year,month,day].join('-')
         },
-        goAdmin(){
-            this.$router.replace({path:'/AdminMenu/'})
-        }
     },
 }
 </script>

@@ -3,8 +3,8 @@
     <div id="header">
         <b-navbar type="dark" variant="dark">
             <a class="navbar-brand" href="/">DRF Sample</a>
-            <a class="navbar-brand" href="/AdminMenu" v-if="$route.meta.requiresAuth && this.data.is_staff">管理画面へ</a>
-            <b-navbar-nav class="ml-auto" v-if="$route.meta.requiresAuth">
+            <a class="navbar-brand" href="/AdminMenu" v-if="$route.meta.requiresAdmin||this.data.is_adminAccess">管理画面へ</a>
+            <b-navbar-nav class="ml-auto" v-if="$route.meta.requiresAuth || $route.meta.requiresAdmin">
                 <b-nav-item-dropdown right v-if="isLoggedIn">
                     <template slot="button-content">{{ user_id }}</template>
                     <b-dropdown-item href="#" @click="clickLogout">ロ グ ア ウ ト
@@ -22,7 +22,7 @@
                 return this.data['user_id']
             },
             isLoggedIn:function(){
-                return this.data['is_activate']
+                return this.data['is_staff']
             },
         },
         data(){

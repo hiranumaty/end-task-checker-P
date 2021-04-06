@@ -32,19 +32,31 @@ const router= new VueRouter({
             path:'/AdminMenu',
             component:AdminMenu,
             name:'AdminMenu',
-            meta:{requiresAuth:true}
+            meta:{requiresAdmin:true}
         },
         {
             path:'/DeptDetail/:target',
             component:DeptMasterDetail,
             name:'DeptDetail',
-            meta:{requiresAuth:true}
+            meta:{requiresAdmin:true}
         },
         {
             path:'/TaskDetail/:target',
             component:TaskMasterDetail,
             name:'TaskDetail',
-            meta:{requiresAuth:true}
+            meta:{requiresAdmin:true}
+        },
+        {
+            path:'/CreateTask/',
+            component:CreateTask,
+            name:'CreateTask',
+            meta:{requiresAdmin:true}
+        },
+        {
+            path:'/CreateDept/',
+            component:CreateDept,
+            name:'CreateDept',
+            meta:{requiresAdmin:true}
         },
         {
             path:'/MainPage',
@@ -59,18 +71,6 @@ const router= new VueRouter({
             meta:{requiresAuth:true}
         },
         {
-            path:'/CreateTask/',
-            component:CreateTask,
-            name:'CreateTask',
-            meta:{requiresAuth:true}
-        },
-        {
-            path:'/CreateDept/',
-            component:CreateDept,
-            name:'CreateDept',
-            meta:{requiresAuth:true}
-        },
-        {
             path:'*',
             redirect:'/'
         },
@@ -81,6 +81,8 @@ const router= new VueRouter({
 router.beforeEach((to,from,next) =>{
     const isLoggedIn = store.getters['isLoggedIn']
     const token = sessionStorage.getItem('token')
+    const userinfo =  JSON.parse(sessionStorage.getItem('user'))
+    //一回使うとisLoggedInが消える問題is何?
     if(to.matched.some(record => record.meta.requiresAuth))
     {
         //ログイン状態の場合
@@ -106,14 +108,25 @@ router.beforeEach((to,from,next) =>{
     {
         //ログイン状態の場合
         if(isLoggedIn){
-            next()
+
+            if(userinfo.is_adminAccess==true)
+            {
+                next()
+            }else{
+                forceToLoginPage(to,from,next)
+            }
         }else{
             //トークンが残っているか
             if(token!=null){
                 //auth//reloadをreloadに変更
                 store.dispatch('reload')
                     .then(()=>{
-                        next()
+                        if(userinfo.is_adminAccess==true)
+                        {
+                            next()
+                        }else{
+                            forceToLoginPage(to,from,next)
+                        }
                     })
                     .catch(()=>{
                         forceToLoginPage(to,from,next)
@@ -122,7 +135,6 @@ router.beforeEach((to,from,next) =>{
                 forceToLoginPage(to,from,next)
             }
         }
-   
     }else{
         //ログイン不要なページであればすぐに遷移
         next()
@@ -137,6 +149,5 @@ function forceToLoginPage(to,from,next){
         }
     })
 }
-
 export default router
 

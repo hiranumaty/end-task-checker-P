@@ -8,7 +8,7 @@ const authModule = {
     strict: process.env.NODE_ENV !== 'production',
     namedspaced:true,
     state:{
-        //user_idがsetされない問題
+        //元の名残(機能していない)
         isLoggedIn:false,
     },
     getters:{
@@ -16,11 +16,12 @@ const authModule = {
     },
     mutations:{
         set(state,payload){
-            //accountにgetメソッドが必要か
+            //機能はしていないだろう
             console.log(payload)
             state.isLoggedIn = true
         },
         clear(state){
+            //おそらく不要だと思われるがaxiosの仕様的にどうなのかは要検討
             state.isLoggedIn = false
         }
     },
@@ -37,7 +38,7 @@ const authModule = {
                 sessionStorage.setItem('token',response.data.access)
                 return context.dispatch('reload')
                 .then(user => {
-                    context.commit('set',{user_id:user.user_id})
+                    context.commit('set',{user:user})
                 });
             })
         },

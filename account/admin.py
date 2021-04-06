@@ -9,7 +9,7 @@ from .models import User
 class CustomeUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = User
-        fields = ('user_id','is_activate', 'is_staff')
+        fields = ('user_id','is_activate', 'is_staff','is_adminAccess')
 
 
 class CustomeUserChangeForm(UserChangeForm):
@@ -24,14 +24,14 @@ class CustomeUserAdmin(UserAdmin):
         ("ユーザー情報", {
             'fields': ('user_id', 'password', 'email')}
          ), ("権限", {
-             'fields': ('is_activate', 'is_staff')
+             'fields': ('is_activate', 'is_staff','is_adminAccess')
          })
     )
     form = CustomeUserChangeForm
     add_form = CustomeUserCreationForm
 
     list_filter = ('is_activate', 'is_staff',)
-    list_display = ('user_id', 'email', 'is_activate', 'is_staff')
+    list_display = ('user_id', 'email', 'is_activate', 'is_staff','is_adminAccess')
     search_fields = ['user_id', ]
     ordering = ('user_id',)
 

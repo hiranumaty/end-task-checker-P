@@ -46,9 +46,6 @@ class CreateDeptsAPIView(views.APIView):
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
 
-# class CreateDeptsAPIView(generics.CreateAPIView):
-#     queryset = DeptsMaster.objects.all()
-#     serializer_class = DeptsSerializer
 class TaskFilter(filters.FilterSet):
     class Meta:
         model = TasksMaster
@@ -71,7 +68,3 @@ class CreateTasksAPIView(views.APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
-
-# class CreateTasksAPIView(generics.CreateAPIView):
-#     queryset = TasksMaster.objects.all()
-#     serializer_class = TasksSerializer
