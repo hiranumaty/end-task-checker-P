@@ -29,6 +29,7 @@
 import './stylesheet/ListStyle.css'
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
+import InputCheckApi from "@/services/InputCheckAPI"
 import AdminListApi from "@/services/AdminListApi";
 import api from '@/services/api'
 export default{
@@ -54,22 +55,26 @@ export default{
             event.target.value = text
         },
         changeEvent(){
+            let InputCheck = new InputCheckApi();
             let update_id = document.getElementById("input_id").value;
             let update_deploy_name = document.getElementById("input_name").value;
             let update_valid_flg = document.getElementById("input_flg").value;
             let update_valid_start = document.getElementById("input_start").value;
             let flg = (update_valid_flg=='有効')? true:false;
-
-            let update_data ={
-                deploy_name:update_deploy_name,
-                valid_flg:flg,
-                valid_start:update_valid_start,
+            if(InputCheck.input_check(update_id,update_deploy_name,update_valid_start))
+            {
+                let update_data ={
+                    deploy_name:update_deploy_name,
+                    valid_flg:flg,
+                    valid_start:update_valid_start,
+                }
+                api.patch(this.host+"/MasterControll/getDepts/"+update_id+"/update/",update_data)
+                .then(()=>{
+                    this.$router.replace({path:'/AdminMenu/'})
+                });
+            }else{
+                console.log('入力ミス')
             }
-
-            api.patch(this.host+"/MasterControll/getDepts/"+update_id+"/update/",update_data)
-            .then(()=>{
-                this.$router.replace({path:'/AdminMenu/'})
-            });
         },
     }
 }

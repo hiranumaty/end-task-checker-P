@@ -24,6 +24,7 @@
 import './stylesheet/ListStyle.css'
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
+import InputCheckApi from "@/services/InputCheckAPI"
 import api from '@/services/api'
 export default{
     components:{
@@ -35,21 +36,27 @@ export default{
     },
     methods:{
         ExCreate(){
+            let InputCheck = new InputCheckApi()
             let input_id = document.getElementById("input_id").value;
             let input_name = document.getElementById("input_name").value;
             let input_start = document.getElementById("input_start").value;
             let nowdate = new Date()
-            let newdata={
-                id:input_id,
-                deploy_name:input_name,
-                valid_flg:false,
-                valid_start:input_start,
-                created_at:this.FormatDate(nowdate)
+            if(InputCheck.input_check(input_id,input_name,input_start))
+            {
+                let newdata={
+                    id:input_id,
+                    deploy_name:input_name,
+                    valid_flg:false,
+                    valid_start:input_start,
+                    created_at:this.FormatDate(nowdate)
+                }
+                api.post(this.host+"/MasterControll/getDepts/create/",newdata)
+                .then(()=>{
+                    this.$router.replace({path:'/AdminMenu'}) 
+                });
+            }else{
+                console.log("入力ミス")
             }
-            api.post(this.host+"/MasterControll/getDepts/create/",newdata)
-            .then(()=>{
-               this.$router.replace({path:'/AdminMenu'}) 
-            });
         },
         FormatDate(Date){
             let year  = '' + Date.getFullYear();
