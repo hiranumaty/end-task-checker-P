@@ -49,18 +49,27 @@ export default{
             toDoDatas:[],
         }
     },
+    watch:{
+        async $route(){
+            this.fetchData()
+        }
+    },
     async created(){
-        let ListStatusAPI = new ListStatusApi()
-        let today = new Date();
-        let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
-        this.thisMonth = thisMonth
-        this.TargetMonth = thisMonth
-        this.host = process.env.VUE_APP_API_BASE_URL;
-        this.userinfo = JSON.parse(sessionStorage.getItem("user"))
-        await ListStatusAPI.getTaskMaster(this)
-        await ListStatusAPI.getStatusData(this,thisMonth)
+        this.fetchData()
     },
     methods:{
+        async fetchData(){
+            //データの取得の際に実行される
+            let ListStatusAPI = new ListStatusApi()
+            let today = new Date();
+            let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
+            this.thisMonth = thisMonth
+            this.TargetMonth = thisMonth
+            this.host = process.env.VUE_APP_API_BASE_URL;
+            this.userinfo = JSON.parse(sessionStorage.getItem("user"))
+            await ListStatusAPI.getTaskMaster(this)
+            await ListStatusAPI.getStatusData(this,thisMonth)
+        },
         ChangeState(event){
             let id = event.target.id;
             let flg = event.target.classList;

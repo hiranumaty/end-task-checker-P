@@ -45,19 +45,28 @@ export default{
             toDoDatas:[],
         }
     },
+    watch:{
+        async $route(){
+            //同じコンポーネントを再度読み込む際に実行される
+            this.fetchData()
+        }
+    },
     async created(){
-        let ListStatusAPI = new ListStatusApi()
-        let today = new Date();
-        let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
-        let TargetMonth = this.$route.params['target']
-        this.thisMonth = thisMonth
-        this.TargetMonth = TargetMonth
-        this.host = process.env.VUE_APP_API_BASE_URL;
-        this.userinfo = JSON.parse(sessionStorage.getItem("user"))
-        await ListStatusAPI.getTaskMaster(this)
-        await ListStatusAPI.getStatusData(this,TargetMonth)
+        this.fetchData()
     },
     methods:{
+        async fetchData(){
+            let ListStatusAPI = new ListStatusApi()
+            let today = new Date();
+            let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
+            let TargetMonth = this.$route.params['target']
+            this.thisMonth = thisMonth
+            this.TargetMonth = TargetMonth
+            this.host = process.env.VUE_APP_API_BASE_URL;
+            this.userinfo = JSON.parse(sessionStorage.getItem("user"))
+            await ListStatusAPI.getTaskMaster(this)
+            await ListStatusAPI.getStatusData(this,TargetMonth)
+        },
         ChangeState(event){
             let id = event.target.id;
             let flg = event.target.className;
@@ -81,6 +90,6 @@ export default{
             }
         }
         ,
-    }
+    },
 };
 </script>
