@@ -47,7 +47,6 @@ export default{
     },
     watch:{
         async $route(){
-            //同じコンポーネントを再度読み込む際に実行される
             this.fetchData()
         }
     },
@@ -56,6 +55,7 @@ export default{
     },
     methods:{
         async fetchData(){
+            //データの取得の際に実行される
             let ListStatusAPI = new ListStatusApi()
             let today = new Date();
             let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)

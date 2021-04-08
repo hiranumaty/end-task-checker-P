@@ -73,13 +73,7 @@ export default{
         ChangeState(event){
             let id = event.target.id;
             let flg = event.target.classList;
-            let changeFlg;
-            if(flg.contains('未') == true){
-                changeFlg = true
-            }else if(flg.contains('済')==true){
-                changeFlg = false
-            }
-            changeFlg = (flg[1]=="未") ? true:false
+            let changeFlg = (flg[1]=="未") ? true:false;
             let updateData = {toDoFlg:changeFlg}
             api.patch(this.host+"/ExState/"+id+"/update/",updateData)
             this.$router.go(this.$route.path)
