@@ -13,7 +13,7 @@
             <tr>
                 <td><input type="text" id="input_id"></td>
                 <td><input type="text" id="input_name"></td>
-                <td><input type="text" id="input_start" min="1900-01-01"></td>
+                <td><input type="date" id="input_start" min="1900-01-01"></td>
                 <td><button @click="ExCreate">追加</button></td>
             </tr>
         </table>
