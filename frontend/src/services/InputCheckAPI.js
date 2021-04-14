@@ -10,6 +10,7 @@ class InputCheckAPI{
     }
     id_check(id){
         var flg = false;
+        //idは5桁の数字
         const stringpattern = "^[0-9]{5}$";
         if(id.match(stringpattern)){
             flg = true
@@ -18,6 +19,7 @@ class InputCheckAPI{
     }
     name_check(name){
         var flg = false;
+        //名前は30文字以内
         if(name.length>=1 && name.length<=30){
             flg = true
         }
@@ -25,6 +27,7 @@ class InputCheckAPI{
     }
     Date_check(DateString){
         var flg = false;
+        //4桁-2桁-2桁で入力
         const stringpattern = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
         if(DateString.match(stringpattern))
         {
@@ -34,9 +37,7 @@ class InputCheckAPI{
             var checkdate = new Date(year,month,day)
             if(checkdate.getFullYear()==year && checkdate.getMonth()==month&&checkdate.getDate()==day)
             {
-                //ここ少し変える必要あり4-31が存在するとか言い出すから
-                flg = true
-                
+                flg = true   
             }
         }
         return flg

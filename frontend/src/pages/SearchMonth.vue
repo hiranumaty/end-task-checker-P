@@ -2,26 +2,36 @@
     <v-app>
         <GlobalHeader />
         <GlobalMessage />
-        <div name="SearchField">
-            <input  class="SearchMonthField" type="text" v-model="TargetMonth" maxlength="6">
-            <button @click="SearchMonth" class="SearchButton">検索</button>
-        </div>
-        <table  class="DataTable">
-            <tr class="header">
-                <template v-for="Column in taskListColumns">
-                    <th :key="Column.index">{{Column.text}}</th>
-                </template>
-            </tr>
-           <template v-for="toDodata in toDoDatas">
-            <tr :key="toDodata.index">
-                <template v-for="cell in toDodata">
-                    <td :key="cell.index">
-                        {{cell.text}}
-                    </td>
-                </template>
-            </tr>
-           </template>
-        </table>
+        <v-main>
+            <v-container fluid >
+                <v-row name="SearchField">
+                    <v-col cols="12">
+                        <input  class="SearchMonthField" type="text" v-model="TargetMonth" maxlength="6">
+                        <button @click="SearchMonth" class="SearchButton">検索</button>
+                    </v-col> 
+                </v-row>
+                <v-row>
+                    <v-col cols="12">
+                        <table  class="DataTable">
+                            <tr class="header">
+                                <template v-for="Column in taskListColumns">
+                                    <th :key="Column.index">{{Column.text}}</th>
+                                </template>
+                            </tr>
+                        <template v-for="toDodata in toDoDatas">
+                            <tr :key="toDodata.index">
+                                <template v-for="cell in toDodata">
+                                    <td :key="cell.index">
+                                        {{cell.text}}
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                        </table>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-main>
     </v-app>
 </template>
 <script>
