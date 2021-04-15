@@ -15,7 +15,11 @@
                     <tr :key="Task.index">
                         <td><input type="text" id="input_id" v-bind:value="Task['id']" readonly></td>
                         <td><input type="text" id="input_name" v-bind:value="Task['Task_name']"></td>
-                        <td><input type="button" id="input_flg" v-bind:value="Task['valid_text']" @click="changeValid_Text"></td>
+                        <td>
+                            <v-btn id="input_flg" @click="changeValid_Text" :value="Task['valid_text']">
+                                {{Task['valid_text']}}
+                            </v-btn>
+                        </td>
                         <td><input type="date"  id="input_start" v-bind:value="Task['valid_start']"></td>
                         <td><v-btn @click="changeEvent">変更</v-btn></td>
                     </tr>
@@ -50,9 +54,11 @@ export default{
     },
     methods:{
         changeValid_Text(event){
-            let text = event.target.value
+            let text = event.currentTarget.value;
+            let vbtn_content = event.currentTarget.getElementsByClassName('v-btn__content')[0]
             text = (text=='有効') ?'無効':'有効';
-            event.target.value = text
+            event.currentTarget.value = text
+            vbtn_content.innerHTML = text
         },
         changeEvent(){
             let InputCheck = new InputCheckApi()

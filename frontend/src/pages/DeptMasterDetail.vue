@@ -15,7 +15,11 @@
                     <tr :key="Dept.index">
                         <td><input type="text" id="input_id" v-bind:value="Dept['id']" readonly></td>
                         <td><input type="text" id="input_name" v-bind:value="Dept['deploy_name']"></td>
-                        <td><input type="button" id="input_flg" v-bind:value="Dept['valid_text']" @click="changeValid_Text"></td>
+                        <td>
+                            <v-btn id="input_flg" @click="changeValid_Text" v-bind:value="Dept['valid_text']">
+                                {{Dept['valid_text']}}
+                            </v-btn>
+                        </td>
                         <td><input type="date" id="input_start" v-bind:value="Dept['valid_start']"></td>
                         <td><v-btn @click="changeEvent">変更</v-btn></td>
                     </tr>
@@ -50,9 +54,11 @@ export default{
     },
     methods:{
         changeValid_Text(){
-            let text = event.target.value
+            let text = event.currentTarget.value;
+            let vbtn_content = event.currentTarget.getElementsByClassName('v-btn__content')[0] 
             text = (text=='有効') ?'無効':'有効';
-            event.target.value = text
+            event.currentTarget.value = text
+            vbtn_content.innerHTML = text
         },
         changeEvent(){
             let InputCheck = new InputCheckApi();
