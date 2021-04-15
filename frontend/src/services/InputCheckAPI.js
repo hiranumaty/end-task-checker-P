@@ -32,12 +32,13 @@ class InputCheckAPI{
         if(DateString.match(stringpattern))
         {
             var year = DateString.split("-")[0]
-            var month = DateString.split("-")[1]
+            var month = (DateString.split("-")[1]-1)
             var day = DateString.split("-")[2]
+            //ここでバグがあるみたいだ
             var checkdate = new Date(year,month,day)
             if(checkdate.getFullYear()==year && checkdate.getMonth()==month&&checkdate.getDate()==day)
             {
-                flg = true   
+                flg = true 
             }
         }
         return flg
