@@ -14,7 +14,7 @@
                 <td><input type="text" id="input_id"></td>
                 <td><input type="text" id="input_name"></td>
                 <td><input type="date" id="input_start" min="1900-01-01"></td>
-                <td><button @click="ExCreate">追加</button></td>
+                <td><v-btn @click="ExCreate">追加</v-btn></td>
             </tr>
         </table>
     </v-app>

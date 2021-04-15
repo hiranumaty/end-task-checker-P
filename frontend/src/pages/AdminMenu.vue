@@ -21,7 +21,7 @@
                                     <th>{{Dept["deploy_name"]}}</th>
                                     <th>{{Dept["valid_text"]}}</th>
                                     <th>{{Dept["valid_start"]}}</th>
-                                    <th><button :class="Dept['id']" @click="ModifyDept" class="CtrlBtn">変更</button></th>
+                                    <th><v-btn :value="Dept['id']" @click="ModifyDept" >変更</v-btn></th>
                                 </tr>
                             </template>
                         </table>
@@ -44,7 +44,7 @@
                                     <th>{{Task["Task_name"]}}</th>
                                     <th>{{Task["valid_text"]}}</th>
                                     <th>{{Task["valid_start"]}}</th>
-                                    <th><button :class="Task['id']" @click="ModifyTask" class="CtrlBtn">変更</button></th>
+                                    <th><v-btn :value="Task['id']" @click="ModifyTask">変更</v-btn></th>
                                 </tr>
                             </template>
                         </table>
@@ -52,15 +52,15 @@
                 </v-row>
                 <v-row>
                     <v-col cols="1">
-                        <button @click="CreateDept" class="CtrlBtn">新規部署作成</button>
+                        <v-btn @click="CreateDept" class="CtrlBtn">新規部署作成</v-btn>
                     </v-col>
                     <v-col cols="1">
-                        <button @click="CreateTask" class="CtrlBtn">新規タスク作成</button>
+                        <v-btn @click="CreateTask" class="CtrlBtn">新規タスク作成</v-btn>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
-                        <button id="ToMain" @click="goMain" class="CtrlBtn">メインページへ</button>
+                        <v-btn id="ToMain" @click="goMain" class="CtrlBtn">メインページへ</v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -94,11 +94,11 @@ export default{
             this.$router.replace({path:'/MainPage'})
         },
         ModifyDept(event){
-            let id = event.target.className;
+            let id = event.currentTarget.value;
             this.$router.replace({path:'/DeptDetail/'+id})
         },
         ModifyTask(event){
-            let id = event.target.className;
+            let id = event.currentTarget.value;
             this.$router.replace({path:'/TaskDetail/'+id})
         },
         CreateTask(){
