@@ -4,50 +4,52 @@
         <GlobalMessage />
         <v-main>
             <v-container fluid>
-                <v-row>部署マスター</v-row>
                 <v-row>
                     <v-col>
-                        <table id="DeptArea" class="DataTable">
-                            <tr class="header">
-                                <th>部署ID</th>
-                                <th>部署名</th>
-                                <th>有効/無効</th>
-                                <th>有効開始日</th>
-                                <th></th>
-                            </tr>
-                            <template v-for="Dept in DeptList">
-                                <tr :key="Dept.index">
-                                    <th>{{Dept["id"]}}</th>
-                                    <th>{{Dept["deploy_name"]}}</th>
-                                    <th>{{Dept["valid_text"]}}</th>
-                                    <th>{{Dept["valid_start"]}}</th>
-                                    <th><v-btn :value="Dept['id']" @click="ModifyDept" >変更</v-btn></th>
+                        <v-card>
+                        <v-card-title>部署マスター</v-card-title>
+                            <table id="DeptArea" class="DataTable">
+                                <tr class="header">
+                                    <th>部署ID</th>
+                                    <th>部署名</th>
+                                    <th>有効/無効</th>
+                                    <th>有効開始日</th>
+                                    <th></th>
                                 </tr>
-                            </template>
-                        </table>
+                                <template v-for="Dept in DeptList">
+                                    <tr :key="Dept.index">
+                                        <th>{{Dept["id"]}}</th>
+                                        <th>{{Dept["deploy_name"]}}</th>
+                                        <th>{{Dept["valid_text"]}}</th>
+                                        <th>{{Dept["valid_start"]}}</th>
+                                        <th><v-btn :value="Dept['id']" @click="ModifyDept" >変更</v-btn></th>
+                                    </tr>
+                                </template>
+                            </table>
+                        </v-card>
                     </v-col>
-                </v-row>
-                <v-row>タスクマスター</v-row>
-                <v-row>
                     <v-col>
-                        <table id="TaskArea" class="DataTable">
-                            <tr class="header">
-                                <th>タスクID</th>
-                                <th>タスク名</th>
-                                <th>有効/無効</th>
-                                <th>有効開始日</th>
-                                <th></th>
-                            </tr>
-                            <template v-for="Task in taskList">
-                                <tr :key="Task.index">
-                                    <th>{{Task["id"]}}</th>
-                                    <th>{{Task["Task_name"]}}</th>
-                                    <th>{{Task["valid_text"]}}</th>
-                                    <th>{{Task["valid_start"]}}</th>
-                                    <th><v-btn :value="Task['id']" @click="ModifyTask">変更</v-btn></th>
+                        <v-card>
+                            <v-card-title>タスクマスター</v-card-title>
+                            <table id="TaskArea" class="DataTable">
+                                <tr class="header">
+                                    <th>タスクID</th>
+                                    <th>タスク名</th>
+                                    <th>有効/無効</th>
+                                    <th>有効開始日</th>
+                                    <th></th>
                                 </tr>
-                            </template>
-                        </table>
+                                <template v-for="Task in taskList">
+                                    <tr :key="Task.index">
+                                        <th>{{Task["id"]}}</th>
+                                        <th>{{Task["Task_name"]}}</th>
+                                        <th>{{Task["valid_text"]}}</th>
+                                        <th>{{Task["valid_start"]}}</th>
+                                        <th><v-btn :value="Task['id']" @click="ModifyTask">変更</v-btn></th>
+                                    </tr>
+                                </template>
+                            </table>
+                        </v-card>
                     </v-col>
                 </v-row>
                 <v-row>
