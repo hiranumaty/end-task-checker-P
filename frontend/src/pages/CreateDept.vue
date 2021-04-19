@@ -11,7 +11,7 @@
                 <th></th>
             </tr>
             <tr>
-                <td><input type="text" id="input_id"></td>
+                <td><input type="text" id="input_id" maxlength="5"></td>
                 <td><input type="text" id="input_name"></td>
                 <td><input type="date" id="input_start" min="1900-01-01"></td>
                 <td><v-btn @click="ExCreate">追加</v-btn></td>

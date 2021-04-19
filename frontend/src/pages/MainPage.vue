@@ -86,7 +86,10 @@ export default{
             let changeFlg = (flg[1]=="未") ? true:false;
             let updateData = {toDoFlg:changeFlg}
             api.patch(this.host+"/ExState/"+id+"/update/",updateData)
-            this.$router.go(this.$route.path)
+            .then(()=>{
+                this.$router.go(this.$route.path)
+            });
+            
         },
         SearchMonth(){
             if(this.TargetMonth.length==6){

@@ -5,7 +5,7 @@
         <v-main>
             <v-container fluid>
                 <v-row>
-                    <v-col>
+                    <v-col cols="4">
                         <v-card>
                         <v-card-title>部署マスター</v-card-title>
                             <table id="DeptArea" class="DataTable">
@@ -28,7 +28,7 @@
                             </table>
                         </v-card>
                     </v-col>
-                    <v-col>
+                    <v-col cols="4">
                         <v-card>
                             <v-card-title>タスクマスター</v-card-title>
                             <table id="TaskArea" class="DataTable">

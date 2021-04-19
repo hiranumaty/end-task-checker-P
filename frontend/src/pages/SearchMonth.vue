@@ -66,6 +66,7 @@ export default{
     methods:{
         async fetchData(){
             //データの取得の際に実行される
+            //SearchMonthとMainPage上手くまとめられるか
             let ListStatusAPI = new ListStatusApi()
             let today = new Date();
             let thisMonth = today.getFullYear().toString() + ("0"+(today.getMonth()+1)).slice(-2)
