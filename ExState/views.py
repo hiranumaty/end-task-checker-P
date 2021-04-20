@@ -97,7 +97,7 @@ class ExStateUpDateAPIView(generics.UpdateAPIView):
 
 class ExStateCreateMonthAPIView(views.APIView):
     """月単位で実行状況データを作成する(実行した月)"""
-    def post(self,request,*args,**kwargs):
+    def post(self,request,TargetMonth,*args,**kwargs):
         """MasTerDataからデータを取得する"""
         ExStateDatas =[] 
         Dept_filterset = DeptsFilter(request.query_params,queryset=DeptsMaster.objects.filter(valid_flg=True).order_by('id'))
@@ -109,7 +109,6 @@ class ExStateCreateMonthAPIView(views.APIView):
         DeptList = Dept_serializer.data
         TaskList = Task_serializer.data
         #対象月の取得方法を考えろ
-        TargetMonth = "202106"
         for Dept in DeptList:
             for Task in TaskList:
                 """OrderDictの要素では駄目とぬかすので"""
