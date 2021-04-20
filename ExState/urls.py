@@ -18,4 +18,6 @@ urlpatterns = [
           views.GetDeptsMaster.as_view()),
      path('GetTaskMaster/',
           views.GetTasksMaster.as_view()),
+     path('ExState/CreateState/',
+          views.ExStateCreateMonthAPIView.as_view()),
 ]

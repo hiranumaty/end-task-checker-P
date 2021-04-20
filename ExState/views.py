@@ -3,8 +3,8 @@ from rest_framework import status, generics,views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from .models import ExState
-from MasterData.models import TasksMaster,DeptsMaster
 from .serializers import ExStateSerializer
+from MasterData.models import TasksMaster,DeptsMaster
 from MasterData.serializers import DeptsSerializer,TasksSerializer
 from django.shortcuts import get_object_or_404
 
@@ -31,6 +31,16 @@ class MultipleFieldLookupMixin(object):
 class ExStateFilter(filters.FilterSet):
     class Meta:
         model = ExState
+        fields = '__all__'
+
+class DeptsFilter(filters.FilterSet):
+    class Meta:
+        model = DeptsMaster
+        fields = '__all__'
+
+class TasksFilter(filters.FilterSet):
+    class Meta:
+        model = TasksMaster
         fields = '__all__'
 
 class GetDeptsMaster(generics.ListAPIView):
@@ -85,4 +95,28 @@ class ExStateUpDateAPIView(generics.UpdateAPIView):
     serializer_class = ExStateSerializer
     lookup_field = 'id'
 
-
+class ExStateCreateMonthAPIView(views.APIView):
+    """月単位で実行状況データを作成する(実行した月)"""
+    def post(self,request,*args,**kwargs):
+        """MasTerDataからデータを取得する"""
+        ExStateDatas =[] 
+        Dept_filterset = DeptsFilter(request.query_params,queryset=DeptsMaster.objects.filter(valid_flg=True).order_by('id'))
+        Task_filterset = TasksFilter(request.query_params,queryset=TasksMaster.objects.filter(valid_flg=True).order_by('id'))
+        if( (Dept_filterset.is_valid() == False) or (Task_filterset.is_valid() == False)):
+            raise ValidationError(filterset.errors)
+        Dept_serializer = DeptsSerializer(instance=Dept_filterset.qs,many=True)
+        Task_serializer = TasksSerializer(instance=Task_filterset.qs,many=True)
+        DeptList = Dept_serializer.data
+        TaskList = Task_serializer.data
+        #対象月の取得方法を考えろ
+        TargetMonth = "202106"
+        for Dept in DeptList:
+            for Task in TaskList:
+                """OrderDictの要素では駄目とぬかすので"""
+                Task_instance = TasksMaster(**Task)
+                Dept_instance = DeptsMaster(**Dept)
+                ExStateData = ExState(task=Task_instance,depart=Dept_instance,TargetMonth=TargetMonth)
+                ExStateDatas.append(ExStateData)
+        ExState.objects.bulk_create(ExStateDatas)
+        #bulk_createは返り値を持たないためどのようにserializer.dataを表示させるか
+        return Response(Dept_serializer.data,status.HTTP_200_OK)
