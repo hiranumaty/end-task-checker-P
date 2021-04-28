@@ -27,14 +27,29 @@ class Command(BaseCommand):
         curl.setopt(pycurl.POST,True)
         curl.setopt(pycurl.POSTFIELDS,login_data)
         curl.setopt(pycurl.WRITEDATA,buffer)
+        curl.setopt(pycurl.CONNECTTIMEOUT,10)
         curl.perform()
         response = curl.getinfo(pycurl.HTTP_CODE)
+        curl.close()
         if response == 200:
             response = buffer.getvalue()
             data= json.loads(response)
             return data['access']
         else:
             return ''
+    def ExRegist(self,token,yearmonth):
+        Ex_header = ['Content-Type:application/json','Authorization:JWT '+token]
+        curl = pycurl.Curl()
+        curl.setopt(pycurl.URL,'http://localhost:8000/api/v1/ExState/CreateState/'+yearmonth+'/')
+        curl.setopt(pycurl.HTTPHEADER,Ex_header)
+        curl.setopt(pycurl.POST,True)
+        curl.setopt(pycurl.CONNECTTIMEOUT,3)
+        #ここが止まらない問題is 何
+        curl.perform()
+        curl.close()
+        return True
+
+
     def handle(self,*args,**options):
         year = int(options['TargetMonth'][0:4])
         month = int(options['TargetMonth'][4:6])
@@ -46,7 +61,10 @@ class Command(BaseCommand):
                 password = options['pass']
                 login_url = 'http://localhost:8000/api/v1/auth/jwt/create'
                 login_token = self.loginConnect(login_url,uid,password)
-                print(login_token)
+                if  not login_token == "":
+                    self.ExRegist(login_token,options['TargetMonth'])
+                else:
+                    print('ログインできませんでしたIDとパスワードを確認してください')
             else:
                 self.stdout.write('YYYYMM形式で入力してください')
         else:
