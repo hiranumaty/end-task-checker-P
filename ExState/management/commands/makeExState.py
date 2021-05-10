@@ -50,7 +50,6 @@ class Command(BaseCommand):
                 login_url = 'http://localhost:8000/api/v1/auth/jwt/create'
                 login_token = self.loginConnect(login_url,uid,password)
                 if  not login_token == "":
-                    print(login_token)
                     self.ExRegist(login_token,options['TargetMonth'])
                 else:
                     print('ログインできませんでしたIDとパスワードを確認してください')
