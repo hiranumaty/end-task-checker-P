@@ -9,6 +9,12 @@ from MasterData.models import TasksMaster, DeptsMaster
 class ExState(models.Model):
     class Meta:
         db_table = 'ExState'
+        constraints =[
+            models.UniqueConstraint(
+                fields =["TargetMonth","task","depart"],
+                name = "unique_data"
+            ),
+        ]
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
