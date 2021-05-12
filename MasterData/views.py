@@ -36,7 +36,21 @@ class ChangeDeptsAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = DeptsSerializer
     lookup_fields = '__all__'
 
-
+class CheckDeptsValidAPIView(views.APIView):
+    def post(self,request,TargetDay,*args,**kwargs):
+        '''
+        指定した日付のデータを取得して、有効フラグをonにする
+        '''
+        UpdateData = []
+        Dept_filterset = DeptsFilter(request.query_params,queryset=DeptsMaster.objects.filter(valid_flg=False,valid_start=TargetDay))
+        Dept_serializer = DeptsSerializer(instance=Dept_filterset.qs,many=True)
+        DeptDatas = Dept_serializer.data
+        for DeptData in DeptDatas:
+            Dept_instance = DeptsMaster(**DeptData)
+            Dept_instance.valid_flg = True
+            UpdateData.append(Dept_instance)
+        DeptsMaster.objects.bulk_update(UpdateData,fields=['valid_flg'])
+        return Response('',status.HTTP_200_OK)
 
 class CreateDeptsAPIView(views.APIView):
 
@@ -60,6 +74,22 @@ class ChangeTasksAPIView(generics.RetrieveUpdateAPIView):
     queryset = TasksMaster.objects.all()
     serializer_class = TasksSerializer
     lookup_fields = '__all__'
+
+class CheckTasksValidAPIView(views.APIView):
+    def post(self,request,TargetDay,*args,**kwargs):
+        '''
+        指定した日付のデータを取得して、有効フラグをonにする
+        '''
+        UpdateData = []
+        Tasks_filterset = TaskFilter(request.query_params,queryset=TasksMaster.objects.filter(valid_flg=False,valid_start=TargetDay))
+        Tasks_serializer = TasksSerializer(instance=Tasks_filterset.qs,many=True)
+        TaskDatas = Tasks_serializer.data
+        for TaskData in TaskDatas:
+            Task_instance = TasksMaster(**TaskData)
+            Task_instance.valid_flg = True
+            UpdateData.append(Task_instance)
+        TasksMaster.objects.bulk_update(UpdateData,fields=['valid_flg'])
+        return Response('',status.HTTP_200_OK)
 
 class CreateTasksAPIView(views.APIView):
 

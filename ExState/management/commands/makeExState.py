@@ -1,8 +1,5 @@
-import datetime
-import pycurl,json
-import requests
+import requests,json,datetime
 from django.core.management import BaseCommand
-from io import BytesIO
 from . import settings
 class Command(BaseCommand):
     #起動引数を取得したい
@@ -52,7 +49,7 @@ class Command(BaseCommand):
                 if  not login_token == "":
                     self.ExRegist(login_token,options['TargetMonth'])
                 else:
-                    print('ログインできませんでしたIDとパスワードを確認してください')
+                    self.stdout.write('ログインできませんでしたIDとパスワードを確認してください')
             else:
                 self.stdout.write('YYYYMM形式で入力してください')
         else:
