@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
 
-dotenv_path = join(os.getcwd(),'.env')
+dotenv_path = join(os.getcwd(),'logininfo.env')
 load_dotenv(dotenv_path)
 
 UID = os.environ.get('UID')
